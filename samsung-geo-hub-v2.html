@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEO Content Hub · Samsung MX</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0C0C0C;--bg2:#161616;--bg3:#1F1F1F;--bg4:#282828;
+  --gold:#F2C000;--gold2:#D4A800;--gold-dim:rgba(242,192,0,.12);
+  --white:#FFFFFF;--text2:#A0A0A0;--text3:#606060;
+  --border:#2A2A2A;--border2:#383838;
+  --green:#39D98A;--red:#FF5252;--amber:#FFAB00;
+  --r:8px;--rl:12px;--sw:230px;--th:58px;
+  --mono:'Courier New',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--white);height:100vh;overflow:hidden;display:flex;flex-direction:column}
+
+/* ── TOPBAR ── */
+.topbar{height:var(--th);background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:20px;flex-shrink:0}
+.topbar-brand{display:flex;align-items:center;gap:14px;width:var(--sw);flex-shrink:0}
+.brand-logos{display:flex;align-items:center;gap:10px}
+.adv-logo{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--white);line-height:1.1;opacity:.9}
+.adv-sub{font-size:8px;font-weight:400;letter-spacing:.14em;color:var(--text3);text-transform:uppercase;display:block}
+.brand-sep{width:1px;height:24px;background:var(--border2)}
+.samsung-logo{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px;letter-spacing:.06em;color:var(--white);text-transform:uppercase}
+.brand-chip{font-size:9px;font-weight:700;background:var(--gold);color:#000;padding:2px 7px;border-radius:3px;letter-spacing:.06em;font-family:'Barlow Condensed',sans-serif;margin-left:4px}
+.topbar-search{flex:1;position:relative}
+.topbar-search input{width:100%;max-width:440px;padding:8px 14px 8px 36px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:'Barlow',sans-serif;background:var(--bg3);color:var(--white);outline:none;transition:border .15s,background .15s}
+.topbar-search input:focus{border-color:var(--gold);background:var(--bg4)}
+.topbar-search input::placeholder{color:var(--text3)}
+.si{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.sync-info{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:5px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.03em}
+.sync-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.btn{padding:7px 14px;border-radius:6px;font-size:12px;font-weight:600;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);transition:all .15s;display:flex;align-items:center;gap:6px;text-transform:uppercase}
+.btn:hover{background:var(--bg4);color:var(--white);border-color:var(--border2)}
+.btn-gold{background:var(--gold);color:#000;border-color:var(--gold)}
+.btn-gold:hover{background:var(--gold2);border-color:var(--gold2);color:#000}
+
+/* ── LAYOUT ── */
+.layout{display:flex;flex:1;overflow:hidden}
+
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sw);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;padding:14px 0;overflow-y:auto}
+.nav-gl{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);padding:16px 16px 6px;font-family:'Barlow Condensed',sans-serif}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 14px;margin:1px 8px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:all .12s;font-family:'Barlow Condensed',sans-serif;letter-spacing:.03em;text-transform:uppercase}
+.nav-item:hover{background:var(--bg3);color:var(--white)}
+.nav-item.active{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(242,192,0,.2)}
+.nav-item svg{flex-shrink:0;opacity:.7}
+.nav-item.active svg{opacity:1}
+.nav-badge{margin-left:auto;font-size:10px;font-weight:700;background:var(--bg4);color:var(--text3);padding:1px 6px;border-radius:3px;font-family:'Barlow Condensed',sans-serif}
+.nav-item.active .nav-badge{background:rgba(242,192,0,.15);color:var(--gold)}
+.sidebar-footer{margin-top:auto;padding:14px 16px;border-top:1px solid var(--border);font-size:10px;color:var(--text3);font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em}
+
+/* ── MAIN ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.page-header{padding:20px 24px 0;flex-shrink:0}
+.page-header h1{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;color:var(--white)}
+.page-header h1 span{color:var(--gold)}
+.page-header p{font-size:12px;color:var(--text3);margin-top:4px;letter-spacing:.01em}
+.filter-bar{padding:12px 24px;display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0;border-bottom:1px solid var(--border)}
+.chip{padding:5px 12px;border-radius:4px;border:1px solid var(--border);font-size:11px;font-weight:700;cursor:pointer;color:var(--text3);background:transparent;transition:all .12s;font-family:'Barlow Condensed',sans-serif;letter-spacing:.05em;text-transform:uppercase}
+.chip:hover{border-color:var(--border2);color:var(--text2)}
+.chip.active{background:var(--gold);color:#000;border-color:var(--gold)}
+.scroll-area{flex:1;overflow-y:auto;padding:16px 24px 32px}
+
+/* ── CARDS ── */
+.sec-head{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin:22px 0 10px;display:flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif}
+.sec-head:first-child{margin-top:0}
+.sec-line{flex:1;height:1px;background:var(--border)}
+.kw-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:14px 16px;margin-bottom:8px;transition:border-color .15s}
+.kw-card:hover{border-color:var(--border2)}
+.kw-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.kw-card-name{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;color:var(--white);letter-spacing:.02em;text-transform:uppercase}
+.pill{font-size:9px;font-weight:700;padding:3px 8px;border-radius:3px;letter-spacing:.06em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif}
+.pill-d{background:rgba(242,192,0,.15);color:var(--gold)}
+.pill-f{background:rgba(57,217,138,.12);color:var(--green)}
+.pill-v{background:rgba(255,171,0,.12);color:var(--amber)}
+.kw-tags{display:flex;flex-wrap:wrap;gap:5px}
+.kw-tag{font-size:11px;padding:4px 9px;border-radius:4px;background:var(--bg3);border:1px solid var(--border);color:var(--text2);cursor:pointer;transition:all .12s;font-family:'Barlow',sans-serif;user-select:none}
+.kw-tag:hover{background:var(--gold-dim);border-color:rgba(242,192,0,.3);color:var(--gold)}
+.kw-tag.copied{background:rgba(57,217,138,.1);border-color:rgba(57,217,138,.3);color:var(--green)}
+.hash-tag{font-size:12px;font-weight:700;padding:5px 12px;border-radius:4px;background:var(--gold-dim);color:var(--gold);cursor:pointer;transition:all .12s;font-family:'Barlow Condensed',sans-serif;border:1px solid rgba(242,192,0,.2);user-select:none;letter-spacing:.03em}
+.hash-tag:hover{background:var(--gold);color:#000}
+.hash-tag.copied{background:rgba(57,217,138,.1);color:var(--green);border-color:rgba(57,217,138,.3)}
+.kw-foot{margin-top:10px;display:flex;align-items:center;justify-content:space-between}
+.kw-hint{font-size:10px;color:var(--text3);font-family:'Barlow',sans-serif}
+.copy-all{font-size:11px;font-weight:700;color:var(--gold);cursor:pointer;background:none;border:none;font-family:'Barlow Condensed',sans-serif;padding:0;letter-spacing:.04em;text-transform:uppercase}
+.copy-all:hover{text-decoration:underline}
+.meta-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:16px;margin-bottom:8px}
+.meta-body{font-size:11.5px;color:var(--text2);line-height:1.8;font-family:var(--mono);background:var(--bg);border-radius:6px;padding:12px 14px;margin-top:10px;border:1px solid var(--border);letter-spacing:.01em}
+.meta-foot{margin-top:10px;display:flex;justify-content:flex-end}
+
+/* ── EDITOR ── */
+.editor-wrap{flex:1;overflow:auto;padding:16px 24px 32px}
+.editor-layout{display:grid;grid-template-columns:1fr 270px;gap:16px}
+.ed-toolbar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+.ed-select{padding:7px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--white);background:var(--bg3);outline:none;cursor:pointer}
+.ed-select:focus{border-color:var(--gold)}
+.ed-textarea{width:100%;min-height:160px;padding:14px;border:1px solid var(--border);border-radius:var(--r);font-size:13.5px;line-height:1.7;font-family:'Barlow',sans-serif;color:var(--white);background:var(--bg2);resize:vertical;outline:none;transition:border .15s}
+.ed-textarea:focus{border-color:rgba(242,192,0,.4)}
+.counter-row{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.counter-num{font-size:13px;font-weight:700;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em}
+.counter-num.ok{color:var(--green)}.counter-num.warn{color:var(--amber)}.counter-num.over{color:var(--red)}
+.counter-hint{font-size:10px;color:var(--text3);font-family:'Barlow',sans-serif}
+.counter-track{height:2px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden}
+.counter-fill{height:100%;border-radius:2px;transition:width .2s,background .2s}
+
+/* formula box for alt text */
+.formula-box{background:var(--bg);border:1px solid rgba(242,192,0,.25);border-radius:var(--r);padding:12px 14px;margin-bottom:12px}
+.formula-title{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.formula-text{font-size:12px;color:var(--text2);font-family:var(--mono);line-height:1.6}
+.formula-example{font-size:11px;color:var(--text3);margin-top:6px;font-style:italic}
+.formula-tabs{display:flex;gap:5px;margin-bottom:10px;flex-wrap:wrap}
+.ftab{font-size:10px;font-weight:700;padding:4px 10px;border-radius:4px;border:1px solid var(--border);cursor:pointer;color:var(--text3);background:transparent;font-family:'Barlow Condensed',sans-serif;letter-spacing:.05em;text-transform:uppercase;transition:all .12s}
+.ftab:hover{border-color:var(--border2);color:var(--text2)}
+.ftab.active{background:var(--gold-dim);border-color:rgba(242,192,0,.3);color:var(--gold)}
+
+/* validations */
+.validations{margin-top:14px;display:flex;flex-direction:column;gap:6px}
+.val{display:flex;align-items:flex-start;gap:9px;font-size:12px;color:var(--text2)}
+.val-icon{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;font-weight:700;margin-top:1px}
+.v-ok{background:rgba(57,217,138,.15);color:var(--green)}
+.v-warn{background:rgba(255,171,0,.15);color:var(--amber)}
+.v-err{background:rgba(255,82,82,.15);color:var(--red)}
+.v-na{background:var(--bg3);color:var(--text3)}
+.val-label{line-height:1.4}
+
+/* sidebar cards */
+.side-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:14px;margin-bottom:12px}
+.sc-title{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;font-family:'Barlow Condensed',sans-serif}
+.sc-note{font-size:10.5px;color:var(--text3);line-height:1.6;border-left:2px solid rgba(242,192,0,.3);padding-left:10px;font-style:italic;margin-bottom:10px}
+.ins-tag{font-size:11px;padding:4px 8px;border-radius:4px;background:var(--bg3);border:1px solid var(--border);color:var(--text2);cursor:pointer;margin:3px;display:inline-block;transition:all .12s;font-family:'Barlow',sans-serif}
+.ins-tag:hover{background:var(--gold-dim);border-color:rgba(242,192,0,.3);color:var(--gold)}
+
+/* checklist */
+.checklist{margin-top:12px;display:flex;flex-direction:column;gap:5px}
+.cl-item{display:flex;align-items:flex-start;gap:8px;font-size:11px;color:var(--text2);line-height:1.5}
+.cl-icon{flex-shrink:0;margin-top:1px;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700}
+
+/* overview */
+.ov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:16px 18px}
+.stat-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;font-family:'Barlow Condensed',sans-serif}
+.stat-val{font-size:32px;font-weight:800;letter-spacing:-.02em;color:var(--gold);font-family:'Barlow Condensed',sans-serif}
+.stat-sub{font-size:11px;color:var(--text3);margin-top:3px}
+.status-list{display:flex;flex-direction:column;gap:6px}
+.si-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:11px 14px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text2);font-family:'Barlow',sans-serif}
+.s-ok{color:#000;font-size:9px;font-weight:700;background:var(--green);padding:3px 8px;border-radius:3px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.05em;text-transform:uppercase}
+.s-warn{color:#000;font-size:9px;font-weight:700;background:var(--amber);padding:3px 8px;border-radius:3px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.05em;text-transform:uppercase}
+
+/* toast */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--gold);color:#000;font-size:12px;font-weight:700;padding:10px 16px;border-radius:6px;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none;z-index:9999;font-family:'Barlow Condensed',sans-serif;letter-spacing:.05em;text-transform:uppercase}
+.toast.show{opacity:1;transform:translateY(0)}
+
+.page{display:none}.page.active{display:flex;flex-direction:column;flex:1;overflow:hidden}
+.empty-state{text-align:center;padding:40px 20px;color:var(--text3);font-size:13px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* ── CAPA 1: GEO SCORE ─────────────────────────────── */
+.geo-score-wrap{margin-bottom:14px;background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);padding:14px 16px}
+.geo-score-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.geo-score-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)}
+.geo-score-num{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;letter-spacing:-.02em;transition:color .3s}
+.geo-score-num.s-low{color:var(--red)}
+.geo-score-num.s-mid{color:var(--amber)}
+.geo-score-num.s-good{color:var(--gold)}
+.geo-score-num.s-top{color:var(--green)}
+.geo-score-num.s-empty{color:var(--text3)}
+.geo-score-grade{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.05em;color:var(--text3);margin-left:6px}
+.geo-bar-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:8px}
+.geo-bar-fill{height:100%;border-radius:3px;transition:width .4s cubic-bezier(.4,0,.2,1),background .4s}
+.geo-criteria{display:flex;flex-direction:column;gap:4px}
+.geo-crit{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--text3)}
+.geo-crit-name{display:flex;align-items:center;gap:6px}
+.geo-crit-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.geo-crit-pts{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;min-width:30px;text-align:right}
+.geo-crit-pts.earned{color:var(--green)}
+.geo-crit-pts.partial{color:var(--amber)}
+.geo-crit-pts.zero{color:var(--text3)}
+
+/* ── INTENT & DENSITY ──────────────────────────────── */
+.geo-meta-row{display:flex;gap:8px;margin-bottom:14px}
+.geo-meta-card{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:10px 12px}
+.geo-meta-title{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.geo-intent-badge{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;padding:3px 8px;border-radius:4px;display:inline-block}
+.intent-info{background:rgba(57,217,138,.1);color:var(--green)}
+.intent-comp{background:rgba(242,192,0,.12);color:var(--gold)}
+.intent-trans{background:rgba(255,171,0,.12);color:var(--amber)}
+.intent-mix{background:var(--bg3);color:var(--text2)}
+.intent-none{background:var(--bg3);color:var(--text3);font-style:italic}
+.intent-promo{background:rgba(242,192,0,.12);color:var(--gold)}
+.density-bar{height:4px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden}
+.density-fill{height:100%;border-radius:2px;background:var(--gold);transition:width .3s}
+.density-num{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:var(--gold)}
+.density-sub{font-size:10px;color:var(--text3);margin-top:2px}
+
+/* ── CANIBALIZACIÓN ────────────────────────────────── */
+.canib-alert{background:rgba(255,82,82,.08);border:1px solid rgba(255,82,82,.25);border-radius:var(--r);padding:10px 12px;margin-bottom:10px;display:none}
+.canib-title{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.canib-body{font-size:11px;color:var(--text2);line-height:1.5}
+
+/* ── SESSION HISTORY ───────────────────────────────── */
+.hist-item{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:8px 10px;margin-bottom:6px;cursor:pointer;transition:border-color .12s}
+.hist-item:hover{border-color:var(--border2)}
+.hist-prod{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.04em;color:var(--gold);text-transform:uppercase}
+.hist-preview{font-size:11px;color:var(--text2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hist-score{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;float:right;margin-top:1px}
+
+</style>
+</head>
+<body>
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="brand-logos">
+      <div class="adv-logo">adventure<span class="adv-sub">consulting</span></div>
+      <div class="brand-sep"></div>
+      <div class="samsung-logo">Samsung</div>
+    </div>
+    <span class="brand-chip">GEO·MX</span>
+  </div>
+  <div class="topbar-search">
+    <svg class="si" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" placeholder="Buscar keyword, producto, feature…" id="global-search" oninput="globalSearch(this.value)">
+  </div>
+  <div class="topbar-right">
+    <div class="sync-info"><div class="sync-dot" id="sync-dot"></div><span id="sync-label">Sincronizado</span></div>
+    <button class="btn btn-gold" onclick="syncData(this)" id="sync-btn">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      Actualizar
+    </button>
+  </div>
+</div>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="nav-gl">Banco de contenido</div>
+    <div class="nav-item active" onclick="goPage('keywords',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+      Keywords <span class="nav-badge">340+</span>
+    </div>
+    <div class="nav-item" onclick="goPage('metatags',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      Metatags <span class="nav-badge">24</span>
+    </div>
+    <div class="nav-item" onclick="goPage('hashtags',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>
+      Hashtags <span class="nav-badge">24</span>
+    </div>
+    <div class="nav-gl">Herramientas</div>
+    <div class="nav-item" onclick="goPage('editor',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      Editor de copy
+    </div>
+    <div class="nav-gl">Sistema</div>
+    <div class="nav-item" onclick="goPage('overview',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Resumen
+    </div>
+    <div class="sidebar-footer">Adventure Consulting · Samsung MX · v2.0</div>
+  </div>
+
+  <div class="main">
+    <!-- KEYWORDS -->
+    <div class="page active" id="page-keywords">
+      <div class="page-header"><h1>Keywords · <span>Copy Outs</span></h1><p>Vocabulario de referencia por producto, feature y VAS. Intégralos de forma natural en los copies.</p></div>
+      <div class="filter-bar">
+        <div class="chip active" onclick="kwF(this,'all')">Todo</div>
+        <div class="chip" onclick="kwF(this,'d')">Dispositivos</div>
+        <div class="chip" onclick="kwF(this,'f')">Features</div>
+        <div class="chip" onclick="kwF(this,'v')">VAS</div>
+      </div>
+      <div class="scroll-area" id="kw-list"></div>
+    </div>
+
+    <!-- METATAGS -->
+    <div class="page" id="page-metatags">
+      <div class="page-header"><h1>Metatags · <span>YouTube & SEO</span></h1><p>Metatags optimizados para descubrimiento en YouTube y motores de búsqueda generativos.</p></div>
+      <div class="filter-bar">
+        <div class="chip active" onclick="metaF(this,'all')">Todo</div>
+        <div class="chip" onclick="metaF(this,'d')">Dispositivos</div>
+        <div class="chip" onclick="metaF(this,'f')">Features</div>
+        <div class="chip" onclick="metaF(this,'v')">VAS</div>
+      </div>
+      <div class="scroll-area" id="meta-list"></div>
+    </div>
+
+    <!-- HASHTAGS -->
+    <div class="page" id="page-hashtags">
+      <div class="page-header"><h1>Hashtags · <span>Redes Sociales</span></h1><p>Sets por producto. Máximo 2–3 por publicación según el GEO Playbook Global.</p></div>
+      <div class="filter-bar">
+        <div class="chip active" onclick="hashF(this,'all')">Todo</div>
+        <div class="chip" onclick="hashF(this,'d')">Dispositivos</div>
+        <div class="chip" onclick="hashF(this,'f')">Features</div>
+        <div class="chip" onclick="hashF(this,'v')">VAS</div>
+      </div>
+      <div class="scroll-area" id="hash-list"></div>
+    </div>
+
+    <!-- EDITOR -->
+    <div class="page" id="page-editor">
+      <div class="page-header" style="padding-bottom:14px"><h1>Editor de <span>Copy</span></h1><p>Cada formato tiene sus propias reglas y fórmulas. Selecciona el tipo de copy para ver las guías correspondientes.</p></div>
+      <div class="editor-wrap">
+        <div class="editor-layout">
+          <div>
+            <div class="ed-toolbar">
+              <select class="ed-select" id="ed-format" onchange="edUpdate()">
+                <optgroup label="── Alt Text">
+                  <option value="alt-prod">Alt Text · Dispositivo</option>
+                  <option value="alt-feat">Alt Text · Feature</option>
+                  <option value="alt-vas">Alt Text · VAS</option>
+                  <option value="alt-wear">Alt Text · Wearable</option>
+                </optgroup>
+                <optgroup label="── Instagram">
+                  <option value="ig">Instagram · Caption</option>
+                </optgroup>
+                <optgroup label="── YouTube">
+                  <option value="yt-title">YouTube · Título</option>
+                  <option value="yt-desc">YouTube · Descripción</option>
+                </optgroup>
+                <optgroup label="── SEO">
+                  <option value="meta">Meta Description</option>
+                </optgroup>
+              </select>
+              <select class="ed-select" id="ed-product" onchange="edUpdate()">
+                <optgroup label="Dispositivos">
+                  <option value="s26">Galaxy S26 / S26 Ultra</option><option value="s25">Galaxy S25 / S25 Ultra</option><option value="zflip7">Galaxy Z Flip7</option><option value="zfold7">Galaxy Z Fold7</option><option value="watch8">Galaxy Watch8 / Watch8 Ultra</option><option value="buds4">Galaxy Buds4 / Buds4 Pro</option><option value="tabs11">Galaxy Tab S11</option><option value="tabs11u">Galaxy Tab S11 Ultra</option><option value="taba11">Galaxy Tab A11+</option><option value="ring">Galaxy Ring</option><option value="a57">Galaxy A57</option><option value="a37">Galaxy A37</option>
+                </optgroup>
+                <optgroup label="Features">
+                  <option value="galaxyai">Galaxy AI</option><option value="nightography">Nightography Video</option><option value="nownudge">Now Nudge</option><option value="callscreening">Call Screening</option><option value="headgestures">Head Gestures</option><option value="hifisound">Hi-Fi Sound</option><option value="horizontallock">Horizontal Lock</option><option value="privacydisplay">Privacy Display</option><option value="photoassist">Photo Assist</option>
+                </optgroup>
+                <optgroup label="VAS">
+                  <option value="smartthings">SmartThings</option><option value="members">Samsung Members</option><option value="knox">Knox Security</option><option value="canje">Galaxy Canje</option><option value="careplus">Samsung Care+</option>
+                </optgroup>
+              </select>
+              <button class="btn" onclick="document.getElementById('ed-text').value='';edUpdate()">Limpiar</button>
+              <button class="btn btn-gold" onclick="copyEditor()">Copiar</button>
+            </div>
+            <div id="ed-formula-area"></div>
+            <div id="canib-alert" class="canib-alert">
+              <div class="canib-title">⚠ Posible canibalización</div>
+              <div class="canib-body" id="canib-body"></div>
+            </div>
+            <textarea class="ed-textarea" id="ed-text" placeholder="Escribe aquí tu copy…" oninput="edUpdate()"></textarea>
+            <div class="counter-track"><div class="counter-fill" id="ed-fill"></div></div>
+            <div class="counter-row"><span class="counter-num" id="ed-count">0 car.</span><span class="counter-hint" id="ed-hint"></span></div>
+            <div class="geo-meta-row" id="geo-meta-row">
+              <div class="geo-meta-card">
+                <div class="geo-meta-title">Intención detectada</div>
+                <div id="intent-badge"><span class="geo-intent-badge intent-none">Escribe tu copy</span></div>
+              </div>
+              <div class="geo-meta-card">
+                <div class="geo-meta-title">Densidad semántica</div>
+                <div class="density-num" id="density-num">0%</div>
+                <div class="density-sub" id="density-sub">0 de 0 keywords presentes</div>
+                <div class="density-bar"><div class="density-fill" id="density-fill" style="width:0%"></div></div>
+              </div>
+            </div>
+            <div class="geo-score-wrap" id="geo-score-wrap">
+              <div class="geo-score-top">
+                <span class="geo-score-label">Score GEO</span>
+                <span>
+                  <span class="geo-score-num s-empty" id="geo-score-num">–</span>
+                  <span class="geo-score-grade" id="geo-score-grade"></span>
+                </span>
+              </div>
+              <div class="geo-bar-track"><div class="geo-bar-fill" id="geo-bar" style="width:0%;background:var(--text3)"></div></div>
+              <div class="geo-criteria" id="geo-criteria"></div>
+            </div>
+            <div class="validations" id="ed-vals"></div>
+          </div>
+          <div>
+            <div class="side-card">
+              <div class="sc-title">Keywords de referencia</div>
+              <div class="sc-note" id="kw-note">Úsalas como guía del lenguaje que los usuarios emplean al buscar en motores de AI. Intégralas de forma natural.</div>
+              <div id="ed-kwsugg"></div>
+            </div>
+            <div class="side-card" id="hash-side-card">
+              <div class="sc-title">Hashtags sugeridos</div>
+              <div id="ed-hashsugg"></div>
+              <p style="font-size:10px;color:var(--text3);margin-top:8px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.03em">MÁXIMO 2–3 POR PUBLICACIÓN</p>
+            </div>
+            <div class="side-card" id="checklist-card" style="display:none">
+              <div class="sc-title">Checklist Alt Text</div>
+              <div class="checklist" id="ed-checklist"></div>
+            </div>
+            <div class="side-card" id="hist-card">
+              <div class="sc-title">Historial de sesión</div>
+              <div id="hist-list"><p style="font-size:11px;color:var(--text3);font-style:italic">Aún no hay copies guardados.</p></div>
+              <button class="btn" style="width:100%;margin-top:10px;font-size:10px;justify-content:center" onclick="clearHistory()">Limpiar historial</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="page" id="page-overview">
+      <div class="page-header"><h1>Resumen del <span>Banco</span></h1><p>Estado actual del banco de contenido GEO · Samsung MX.</p></div>
+      <div class="scroll-area">
+        <div class="ov-grid">
+          <div class="stat-card"><div class="stat-label">Productos totales</div><div class="stat-val">26</div><div class="stat-sub">Dispositivos, features y VAS</div></div>
+          <div class="stat-card"><div class="stat-label">Keywords en banco</div><div class="stat-val">370+</div><div class="stat-sub">Variaciones semánticas MX</div></div>
+          <div class="stat-card"><div class="stat-label">Metatags</div><div class="stat-val">26</div><div class="stat-sub">YouTube y SEO optimizados</div></div>
+          <div class="stat-card"><div class="stat-label">Dispositivos</div><div class="stat-val">12</div><div class="stat-sub">S26, Z Fold7, Ring, Tabs, A Series…</div></div>
+          <div class="stat-card"><div class="stat-label">Features</div><div class="stat-val">9</div><div class="stat-sub">Galaxy AI, Nightography…</div></div>
+          <div class="stat-card"><div class="stat-label">VAS</div><div class="stat-val">5</div><div class="stat-sub">SmartThings, Members…</div></div>
+        </div>
+        <div class="sec-head">Estado por módulo <div class="sec-line"></div></div>
+        <div class="status-list">
+          <div class="si-item"><span>Copy Outs (Keywords)</span><span class="s-ok">Completo</span></div>
+          <div class="si-item"><span>Hashtags</span><span class="s-ok">Completo</span></div>
+          <div class="si-item"><span>Metatags</span><span class="s-ok">Completo</span></div>
+          <div class="si-item"><span>Alt Text (ejemplos por producto)</span><span class="s-warn">Parcial</span></div>
+        </div>
+        <div class="sec-head" style="margin-top:24px">Próximas adiciones · Alta prioridad <div class="sec-line"></div></div>
+        <div class="status-list">
+          <div class="si-item"><span>Galaxy A57</span><span class="s-ok">Incluido</span></div>
+          <div class="si-item"><span>Galaxy A37</span><span class="s-ok">Incluido</span></div>
+          <div class="si-item"><span>Galaxy A16</span><span class="s-warn">Pendiente</span></div>
+          <div class="si-item"><span>Galaxy S25 FE</span><span class="s-warn">Pendiente</span></div>
+          <div class="si-item"><span>Galaxy Book5</span><span class="s-warn">Pendiente</span></div>
+          <div class="si-item"><span>Galaxy Tab S10 FE</span><span class="s-warn">Pendiente</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const DB={
+keywords:[
+{cat:'d',name:'Galaxy S26 / S26 Ultra',tags:['Galaxy S26','Galaxy S26 Ultra','celular con AI','Samsung Galaxy AI','teléfono con inteligencia artificial Samsung','Galaxy S26 Ultra cámara','cámara de 200 megapíxeles','video en 8K celular','diferencias Galaxy S26 y Galaxy S26 Ultra','precio Galaxy S26 Ultra México','Galaxy S26 disponible','mejor celular Samsung','AI phone']},
+{cat:'d',name:'Galaxy S25 / S25 Ultra',tags:['Galaxy S25','Galaxy S25 Ultra','Samsung Galaxy AI','celular inteligente Samsung','S25 Ultra México','mejor celular Samsung','Galaxy S25 Ultra cámara','Galaxy S25 vs Galaxy S25 Ultra','precio Galaxy S25 Ultra','Galaxy S25 Ultra colores México']},
+{cat:'d',name:'Galaxy Z Flip7',tags:['Galaxy Z Flip7','celular plegable Samsung','plegable compacto 2026','Z Flip7 México','Samsung Flip','Z Flip7 pantalla exterior','selfie con celular plegable','Z Flip7 cámara','mejor plegable compacto','precio Galaxy Z Flip7 México','Z Flip7 Galaxy AI']},
+{cat:'d',name:'Galaxy Z Fold7',tags:['Galaxy Z Fold7','celular plegable pantalla grande','plegable para trabajo','multitarea Galaxy Fold','Galaxy Z Fold7 cámara','Galaxy Z Fold7 productividad','mejor plegable Android','precio Galaxy Z Fold7','Galaxy Z Fold7 Galaxy AI','Galaxy Z Fold7 como tablet','plegable para ver series Samsung','Galaxy Z Fold7 vs Pixel Fold','Galaxy Z Fold7 peso','¿es práctico un celular plegable grande?']},
+{cat:'d',name:'Galaxy Watch8 / Watch8 Ultra',tags:['Galaxy Watch8','Galaxy Watch8 Ultra','smartwatch Samsung México','reloj inteligente Samsung','reloj Samsung salud','Galaxy Watch8 deporte','batería Galaxy Watch8','mejor smartwatch Android','precio Galaxy Watch8 México','Galaxy Watch8 disponible','detección de caída Samsung','electrocardiograma celular','Galaxy Watch8 sueño profundo','reloj Samsung presión arterial','wearable salud cardiovascular México']},
+{cat:'d',name:'Galaxy Buds4 / Buds4 Pro',tags:['Galaxy Buds4 Pro','Galaxy Buds4','audífonos Samsung','audífonos inalámbricos Samsung','cancelación de ruido Galaxy Buds4 Pro','audífonos Hi-Fi Samsung','Galaxy Buds4 Pro sonido','Galaxy Buds4 Pro para trabajar','audífonos Samsung para música','Galaxy Buds4 batería','mejores audífonos inalámbricos 2026','precio Galaxy Buds4 Pro México']},
+{cat:'d',name:'Galaxy Tab S11',tags:['Galaxy Tab S11','tablet Samsung','tablet con AI','Galaxy Tab S11 México','Samsung tablet 2026','Galaxy Tab S11 características','Galaxy Tab S11 precio México','tablet para estudiar Samsung','tablet para trabajar con AI','Galaxy Tab S11 pantalla AMOLED','tablet Samsung vs iPad','mejor tablet Android 2026','Galaxy Tab S11 S Pen','tablet Samsung productividad','¿cuál es la mejor tablet Samsung?','Galaxy AI en tablet','tablet inteligente Samsung','Galaxy Tab S11 batería']},
+{cat:'d',name:'Galaxy Tab S11 Ultra',tags:['Galaxy Tab S11 Ultra','tablet premium Samsung','Galaxy Tab S11 Ultra México','tablet con S Pen Samsung','tablet para creativos Samsung','Galaxy Tab S11 Ultra pantalla','Galaxy Tab S11 Ultra precio México','mejor tablet Android profesional','Galaxy Tab S11 Ultra vs iPad Pro','tablet grande Samsung 14.6 pulgadas','Galaxy AI en tablet','tablet Samsung Ultra productividad','tablet para diseñadores Android','¿vale la pena Galaxy Tab S11 Ultra?']},
+{cat:'d',name:'Galaxy Tab A11+',tags:['Galaxy Tab A11 Plus','tablet Samsung accesible','Galaxy Tab A11+ México','tablet Samsung precio accesible','mejor tablet económica Samsung','Galaxy Tab A11+ características','tablet para niños Samsung','tablet para estudiar Android Samsung','Galaxy Tab A11+ batería','tablet Samsung gama de entrada','Galaxy Tab A11+ precio','tablet Samsung para entretenimiento','Galaxy Tab A11+ vs Tab S11','¿qué tablet Samsung comprar con presupuesto limitado?']},
+{cat:'d',name:'Galaxy Ring',tags:['Galaxy Ring','anillo inteligente Samsung','Galaxy Ring México','anillo de salud Samsung','wearable Samsung anillo','Galaxy Ring monitoreo salud','Galaxy Ring sueño','Galaxy Ring frecuencia cardiaca','Samsung anillo precio México','Galaxy Ring características','anillo fitness Samsung','Galaxy Ring vs smartwatch','smart ring Samsung','Galaxy Ring tallas disponibles','anillo rastreador de salud Samsung','¿qué mide el Galaxy Ring?','Galaxy Ring compatible con Galaxy Watch']},
+{cat:'d',name:'Galaxy A57',tags:['Galaxy A57','Samsung Galaxy A57','Galaxy A57 México','celular Samsung gama media','Galaxy A57 cámara','Galaxy AI en Galaxy A57','Galaxy A57 precio México','mejor celular Samsung precio accesible','Galaxy A57 características','Galaxy A57 batería','Samsung A57 vs A56','celular con AI Samsung gama media','Galaxy A57 pantalla','Samsung A57 disponible México','Galaxy A57 vale la pena','celular Samsung jóvenes gama media']},
+{cat:'d',name:'Galaxy A37',tags:['Galaxy A37','Samsung Galaxy A37','Galaxy A37 México','celular Samsung económico','Galaxy A37 cámara','Galaxy A37 precio México','mejor celular Samsung entrada','Galaxy A37 características','Galaxy A37 batería','Samsung A37 disponible','celular Samsung jóvenes','Galaxy A37 pantalla','Samsung gama de entrada 2026','Galaxy A37 vs A36','¿cuál es el Samsung más barato bueno?','celular Samsung accesible México']},
+{cat:'f',name:'Galaxy AI',tags:['Galaxy AI','inteligencia artificial Samsung','AI en tu celular','asistente de AI Samsung','Galaxy AI México','funciones de AI Samsung','Galaxy AI editar fotos','Galaxy AI traducción en tiempo real','Galaxy AI resumir textos','¿qué es Galaxy AI?','¿para qué sirve Galaxy AI?','celular con el mejor asistente de AI']},
+{cat:'f',name:'Nightography Video',tags:['Nightography','cámara nocturna Samsung','fotos de noche celular','video nocturno Samsung','grabar de noche sin flash','fotografía en oscuridad','mejor cámara de noche Android','Samsung para conciertos','fotos nocturnas sin ruido','Nightography S26 Ultra','Nightography video','Nightography cómo funciona','celular que saca buenas fotos de noche','mejor celular para fotografía nocturna']},
+{cat:'f',name:'Now Nudge',tags:['Now Nudge','recordatorios inteligentes Samsung','AI que te recuerda tareas','celular que sugiere lo que necesitas','asistente inteligente Galaxy','Galaxy AI productividad','Now Nudge cómo funciona','Now Nudge activar','Samsung para ser más productivo','celular que te ayuda en el día a día']},
+{cat:'f',name:'Call Screening',tags:['Call Screening Samsung','filtro de llamadas con AI','Samsung detecta spam','bloquear llamadas automáticamente Galaxy','llamadas no deseadas Samsung','celular que filtra llamadas solo','Call Screening cómo funciona','Call Screening México','Galaxy S26 bloquea spam','Call Screening vs contestador automático','Samsung detecta fraudes telefónicos','cómo activar Call Screening México']},
+{cat:'f',name:'Head Gestures',tags:['Head Gestures Samsung','gestos de cabeza audífonos','controlar audífonos sin manos','Samsung accesibilidad','contestar llamadas sin tocar el celular','gestos corporales Galaxy','Head Gestures cómo activar','Samsung manos libres']},
+{cat:'f',name:'Hi-Fi Sound',tags:['Hi-Fi Sound Samsung','sonido de alta fidelidad audífonos','audífonos Samsung calidad profesional','Buds4 Pro Hi-Fi','música sin pérdida de calidad Samsung','sonido estudio desde celular','¿qué es Hi-Fi en audífonos?','mejores audífonos para música Samsung']},
+{cat:'f',name:'Horizontal Lock',tags:['Horizontal Lock Samsung','bloqueo de orientación Galaxy','Samsung pantalla fija','estabilizador en cámara','Horizontal Lock cómo activar','Horizontal Lock Galaxy','video horizontal Samsung']},
+{cat:'f',name:'Privacy Display',tags:['Privacy Display Samsung','pantalla anti espías celular','pantalla privada Galaxy','celular que solo tú puedes ver','modo privacidad visual Samsung','proteger pantalla en público','Privacy Display cómo activar','Privacy Display batería','pantalla privada Samsung','Privacy Display vs filtro de privacidad físico','Privacy Display Galaxy S26 tutorial']},
+{cat:'f',name:'Photo Assist',tags:['Photo Assist Samsung','editar fotos con AI Galaxy','borrar objetos de fotos celular','AI que mejora fotos automáticamente','quitar personas del fondo Galaxy AI','Generative Edit Samsung','edición automática Galaxy','Galaxy AI fotografía creativa','Photo Assist cómo funciona','Photo Assist S26 Ultra','generar fondos con AI Samsung']},
+{cat:'v',name:'SmartThings',tags:['SmartThings Samsung','casa inteligente Samsung','conectar dispositivos Samsung','SmartThings','controlar casa desde celular Samsung','hogar inteligente Galaxy','SmartThings TV celular','rutinas SmartThings','SmartThings compatible con otras marcas','SmartThings ecosistema','ecosistema Samsung','SmartThings cómo configurar','SmartThings en español','cómo instalar SmartThings paso a paso','SmartThings compatible con Alexa','SmartThings compatible con Google Home','SmartThings automaciones ejemplos']},
+{cat:'v',name:'Samsung Members',tags:['Samsung Members','Samsung Members México','app Samsung Members','beneficios Samsung Members','Samsung Members qué es','Samsung Members descuentos','soporte Samsung Members','Samsung Members cómo funciona','Samsung Members puntos','Samsung Members exclusivo','comunidad Samsung México','Samsung Members recompensas','ayuda Samsung con mi celular','Samsung Members ventajas Galaxy','Samsung Members registro gratuito','Samsung Members diagnóstico celular','¿vale la pena Samsung Members?']},
+{cat:'v',name:'Knox Security',tags:['Knox Samsung','Knox Security','celular seguro Samsung','carpeta segura Samsung','proteger datos personales Galaxy','Samsung para banca móvil','Knox contra hackers','celular con mayor seguridad Android','Samsung privacidad datos','Knox cómo activar','Knox Security México','Knox Vault Samsung','carpeta segura cómo ocultar fotos','Samsung para empresas seguridad','Knox para trabajo remoto','celular aprobado por gobierno Samsung']},
+{cat:'v',name:'Galaxy Canje',tags:['Galaxy Canje','canje Samsung México','trade-in Samsung','cambiar celular Samsung viejo por uno nuevo','renovar Galaxy con descuento','cuánto vale mi Galaxy en el canje','Galaxy Canje S26','canje Samsung en línea','Galaxy Canje cómo funciona','Galaxy Canje tiendas México','conviene el canje Samsung']},
+{cat:'v',name:'Samsung Care+',tags:['Samsung Care+','seguro celular Samsung','protección Samsung Care','Samsung Care+ pantalla rota','Samsung Care+ cubre robo','garantía extendida Samsung','contratar Samsung Care+ México','Samsung Care+ precio','Samsung Care+ vale la pena','Samsung Care+ deducible','reparar celular Samsung sin pagar mucho','Samsung Care+ S26']},
+],
+metatags:[
+{cat:'d',name:'Galaxy S26 / S26 Ultra',text:'Samsung, Samsung mobile, Samsung Galaxy, Galaxy AI, AI Phone, Samsung Galaxy S26, Galaxy S26 Ultra, Galaxy S26 México, Galaxy S26 Ultra características, Galaxy S26 precio México, Samsung Galaxy S26 vs Galaxy S25, Galaxy S26 cámara, Galaxy S26 Ultra review español, celular con AI Samsung, AI Phone Samsung, AI Phone 2026, el mejor AI Phone, Samsung 2026, Galaxy S26 Ultra unboxing, S26 Ultra vs iPhone, mejor celular Android 2026, diferencia Galaxy S26 y Galaxy S26 Ultra, nuevo Galaxy S26'},
+{cat:'d',name:'Galaxy S25 / S25 Ultra',text:'Samsung Galaxy S25 Ultra, Galaxy S25 México, Galaxy S25 Ultra review español, Galaxy AI funciones, Galaxy S25 Ultra vs Galaxy S24 Ultra, Samsung S25 cámara nocturna, Galaxy S25 precio, Galaxy S25 Ultra vale la pena, Samsung Galaxy S25 características, Galaxy S25 Ultra tips y hacks, Galaxy S25 Plus vs Ultra, mejor celular Samsung 2025, Samsung Galaxy S25 Ultra unboxing México, Galaxy AI S25'},
+{cat:'d',name:'Galaxy Z Flip7',text:'Samsung Galaxy Z Flip7, Galaxy Z Flip7 México, celular plegable Samsung, Galaxy Z Flip7 review español, Galaxy Z Flip7 vs Galaxy Z Flip6, plegable compacto 2026, Samsung Flip cámara selfie, Galaxy Z Flip7 precio México, teléfono plegable estilo, Galaxy Z Flip7 pantalla exterior, Galaxy AI en Galaxy Z Flip7, celular de moda Samsung'},
+{cat:'d',name:'Galaxy Z Fold7',text:'Samsung Galaxy Z Fold7, Galaxy Z Fold7 México, celular plegable grande, Galaxy Z Fold7 review, Galaxy Z Fold7 vs Galaxy Z Fold6, Samsung Fold productividad, tablet y celular en uno Samsung, Galaxy Z Fold7 precio, plegable Samsung para trabajo, multitarea Galaxy Z Fold7, Galaxy AI Z Fold7, Galaxy Z Fold7 cámara'},
+{cat:'d',name:'Galaxy Tab S11',text:'Samsung Galaxy Tab S11, Galaxy Tab S11 México, tablet Samsung con AI, Galaxy Tab S11 review español, Galaxy Tab S11 vs iPad Air, tablet Android Samsung 2026, Galaxy Tab S11 características, Galaxy Tab S11 precio México, mejor tablet Samsung, Samsung tablet Galaxy AI, Galaxy Tab S11 pantalla AMOLED, Galaxy Tab S11 S Pen, tablet para estudiar Samsung, tablet productividad Samsung, Galaxy AI en tablet'},
+{cat:'d',name:'Galaxy Tab S11 Ultra',text:'Samsung Galaxy Tab S11 Ultra, Galaxy Tab S11 Ultra México, tablet premium Samsung, Galaxy Tab S11 Ultra review español, Galaxy Tab S11 Ultra vs iPad Pro, tablet con S Pen Samsung, Galaxy AI en tablet Ultra, Galaxy Tab S11 Ultra precio México, mejor tablet Android 2026, Samsung tablet profesional creativo, Galaxy Tab S11 Ultra pantalla AMOLED 14.6 pulgadas, tablet para diseñadores Samsung'},
+{cat:'d',name:'Galaxy Tab A11+',text:'Samsung Galaxy Tab A11+, Galaxy Tab A11 Plus México, tablet Samsung accesible, Galaxy Tab A11+ review español, Galaxy Tab A11+ características, Galaxy Tab A11+ precio México, mejor tablet económica Samsung, tablet para estudiar Android Samsung, Samsung Galaxy Tab A11+ batería, tablet para entretenimiento Samsung, Galaxy Tab A11+ vs Tab A9+, tablet Samsung niños y familia'},
+{cat:'d',name:'Galaxy Ring',text:'Samsung Galaxy Ring, Galaxy Ring México, anillo inteligente Samsung, Galaxy Ring review español, Galaxy Ring monitoreo salud, Samsung Ring precio México, Galaxy Ring sueño y recuperación, wearable Samsung anillo, Galaxy Ring características, cómo usar Galaxy Ring, Galaxy Ring vs smartwatch Samsung, Samsung Galaxy Ring batería, anillo fitness seguimiento salud, Galaxy Ring compatible Galaxy Watch8'},
+{cat:'d',name:'Galaxy A57',text:'Samsung Galaxy A57, Galaxy A57 México, celular Samsung gama media 2026, Galaxy A57 características, Galaxy A57 precio México, Samsung A57 review español, Galaxy AI en Galaxy A57, Galaxy A57 cámara, mejor celular Samsung precio accesible, Galaxy A57 batería, Samsung A57 vs A56, Galaxy A57 pantalla, celular con inteligencia artificial Samsung gama media, Galaxy A57 disponible México'},
+{cat:'d',name:'Galaxy A37',text:'Samsung Galaxy A37, Galaxy A37 México, celular Samsung económico 2026, Galaxy A37 características, Galaxy A37 precio México, Samsung A37 review español, Galaxy A37 cámara, mejor celular Samsung entrada, Galaxy A37 batería, Samsung A37 disponible México, celular Samsung jóvenes, Galaxy A37 pantalla, Samsung gama de entrada 2026, Galaxy A37 vs A36'},
+{cat:'d',name:'Galaxy Watch8 / Watch8 Ultra',text:'Samsung Galaxy Watch8, Galaxy Watch8 Ultra México, smartwatch Samsung salud, Galaxy Watch8 vs Apple Watch, reloj inteligente ECG Samsung, Galaxy Watch8 deportes, Samsung Galaxy Watch8 batería, reloj Samsung con GPS, Galaxy Watch8 Ultra aventura, Galaxy Watch8 precio México, smartwatch Android 2026, Samsung Galaxy Watch8 sleep tracking'},
+{cat:'d',name:'Galaxy Buds4 / Buds4 Pro',text:'Samsung Galaxy Buds4 Pro, Galaxy Buds4 Pro cancelación de ruido, Galaxy Buds4 review español, Galaxy Buds4 Pro vs AirPods Pro, audífonos Samsung Hi-Fi, Galaxy Buds4 precio México, mejores audífonos inalámbricos 2026, Galaxy Buds4 Pro batería, Galaxy Buds4 Pro sonido, Galaxy Buds4 Pro para trabajar, audífonos Samsung con IA, Galaxy Buds4 vs Galaxy Buds4 Pro diferencias'},
+{cat:'f',name:'Galaxy AI',text:'Samsung, Samsung mobile, Samsung Galaxy, Galaxy AI, AI Phone, Galaxy AI qué es, inteligencia artificial Samsung celular, Galaxy AI funciones español, cómo usar Galaxy AI, Galaxy AI editar fotos, Galaxy AI traducción en tiempo real, Samsung IA teléfono, Galaxy AI disponible México, Galaxy AI Circle to Search, funciones IA Samsung, asistente AI celular Samsung, Galaxy AI resumen textos, AI Phone Samsung, celular con inteligencia artificial, nuevo AI Phone 2026'},
+{cat:'f',name:'Nightography Video',text:'Nightography Samsung, fotos de noche Galaxy, video nocturno Samsung, cámara nocturna celular, Nightography S26 Ultra, Samsung foto sin flash, mejor cámara nocturna Android, Nightography cómo funciona, video en oscuridad Samsung, Galaxy S26 cámara noche review'},
+{cat:'f',name:'Photo Assist',text:'Photo Assist Samsung, editar fotos con AI Galaxy, borrar objetos fotos Samsung, Galaxy AI edición de imágenes, Generative Edit Samsung, quitar personas fotos Galaxy, Samsung AI fotografía, edición automática Samsung, Photo Assist tutorial español, Galaxy S26 editar fotos automático, mejorar fotos con AI celular'},
+{cat:'f',name:'Call Screening',text:'Call Screening Samsung, filtro llamadas spam Galaxy, Samsung bloquear llamadas automático, Samsung privacidad funciones, teléfono más seguro Android, Call Screening vs contestador automático, Samsung detecta fraudes telefónicos, Galaxy S26 filtro de llamadas comerciales, cómo activar Call Screening México'},
+{cat:'f',name:'Privacy Display',text:'Privacy Display Galaxy, celular seguro Samsung, proteger datos Samsung, pantalla privada celular, Samsung privacidad funciones, teléfono más seguro Android, Privacy Display vs filtro de privacidad físico, pantalla anti espías cómo funciona Samsung, Privacy Display Galaxy S26 tutorial, Privacy Display batería consume más'},
+{cat:'f',name:'Horizontal Lock',text:'Horizontal Lock Samsung, bloqueo orientación pantalla Galaxy, Samsung estabilizador cámara video, Horizontal Lock cómo activar, video horizontal Galaxy S26, Samsung grabar sin girar celular, estabilización automática Samsung, Horizontal Lock tutorial español, Galaxy S26 Ultra video estable, cámara Samsung sin movimiento involuntario'},
+{cat:'f',name:'Hi-Fi Sound',text:'Hi-Fi Sound Samsung, sonido alta fidelidad Galaxy Buds, audífonos Samsung calidad profesional, Galaxy Buds4 Pro Hi-Fi, música lossless Samsung, ¿qué es Hi-Fi en audífonos?, Samsung audio estudio, Hi-Fi Sound vs AirPods Pro sonido, Galaxy Buds4 Pro review audio español, mejores audífonos para música Samsung, sonido sin compresión Galaxy Buds, Hi-Fi Sound cómo funciona'},
+{cat:'f',name:'Head Gestures',text:'Head Gestures Samsung, controlar audífonos con la cabeza, gestos corporales Galaxy Buds, Samsung accesibilidad manos libres, Head Gestures cómo activar, Galaxy Buds4 Pro gestos cabeza, contestar llamadas sin tocar celular, Samsung accesibilidad funciones, Head Gestures tutorial español, audífonos inteligentes Samsung, Galaxy Buds manos libres'},
+{cat:'f',name:'Now Nudge',text:'Now Nudge Samsung, recordatorios inteligentes Galaxy AI, celular que sugiere tareas solo, asistente proactivo Samsung, Now Nudge cómo funciona, Now Nudge activar Galaxy S26, Galaxy AI productividad diaria, Samsung que te recuerda cosas, Now Nudge tutorial español, celular inteligente que anticipa necesidades, Now Nudge vs Google Assistant, Galaxy AI organización personal'},
+{cat:'v',name:'SmartThings',text:'SmartThings Samsung, casa inteligente Samsung, conectar dispositivos SmartThings, SmartThings México cómo funciona, Samsung hogar inteligente, SmartThings TV celular, rutinas SmartThings, ecosistema Samsung, SmartThings, Rutinas inteligentes, Hogar Inteligente Samsung'},
+{cat:'v',name:'Samsung Members',text:'Samsung Members México, app Samsung Members qué es, Samsung Members beneficios, Samsung Members descuentos México, cómo registrarse en Samsung Members, Samsung Members puntos y recompensas, comunidad Samsung México, Samsung Members soporte técnico, Samsung Members exclusivo Galaxy, Samsung Members tutorial español, app Samsung Members descargar gratis, Samsung Members diagnóstico de batería, Samsung Members ventajas Galaxy S26'},
+{cat:'v',name:'Knox Security',text:'Knox Samsung seguridad, carpeta segura Galaxy, Samsung Knox qué es, celular seguro para banca, proteger fotos Samsung, Samsung datos personales protegidos, Knox tutorial español México'},
+{cat:'v',name:'Galaxy Canje',text:'Galaxy Canje Samsung México, cómo hacer trade-in Samsung, canje Galaxy cuánto me dan, renovar celular Samsung descuento, Galaxy Canje S26, Samsung trade-in México, vender Galaxy viejo Samsung, cambiar celular Samsung por S26'},
+{cat:'v',name:'Samsung Care+',text:'Samsung Care Plus México, seguro celular Samsung, qué cubre Samsung Care+, Samsung Care pantalla rota, contratar Samsung Care+ precio, Samsung Care+ vale la pena, garantía extendida Samsung, protección celular México Samsung'},
+],
+hashtags:[
+{cat:'d',name:'Galaxy S26 / S26 Ultra',tags:['#GalaxyS26','#GalaxyS26Ultra','#GalaxyAI','#AIphone']},
+{cat:'d',name:'Galaxy S25 / S25 Ultra',tags:['#GalaxyS25','#GalaxyS25Ultra','#GalaxyAI']},
+{cat:'d',name:'Galaxy Z Flip7',tags:['#GalaxyZFlip7','#GalaxyAI']},
+{cat:'d',name:'Galaxy Z Fold7',tags:['#GalaxyZFold7','#GalaxyAI']},
+{cat:'d',name:'Galaxy Watch8 / Ultra',tags:['#GalaxyWatch8','#GalaxyWatch8Ultra','#GalaxyAI']},
+{cat:'d',name:'Galaxy Buds4 / Pro',tags:['#GalaxyBuds4','#GalaxyBuds4Pro','#GalaxyAI']},
+{cat:'d',name:'Galaxy Tab S11',tags:['#GalaxyTabS11','#GalaxyAI','#TabletSamsung']},
+{cat:'d',name:'Galaxy Tab S11 Ultra',tags:['#GalaxyTabS11Ultra','#GalaxyAI','#TabletSamsung']},
+{cat:'d',name:'Galaxy Tab A11+',tags:['#GalaxyTabA11Plus','#GalaxyTab','#TabletSamsung']},
+{cat:'d',name:'Galaxy Ring',tags:['#GalaxyRing','#Samsung','#SaludConSamsung','#GalaxyAI']},
+{cat:'d',name:'Galaxy A57',tags:['#GalaxyA57','#Samsung','#GalaxyAI']},
+{cat:'d',name:'Galaxy A37',tags:['#GalaxyA37','#Samsung','#GalaxyAI']},
+{cat:'f',name:'Galaxy AI (general)',tags:['#GalaxyAI','#Samsung']},
+{cat:'f',name:'Nightography Video',tags:['#Nightography','#GalaxyAI','#Camara']},
+{cat:'f',name:'Now Nudge',tags:['#GalaxyAI','#Samsung','#NowNudge']},
+{cat:'f',name:'Call Screening',tags:['#GalaxyAI','#Samsung','#CallScreening']},
+{cat:'f',name:'Head Gestures',tags:['#GalaxyAI','#Samsung']},
+{cat:'f',name:'Hi-Fi Sound',tags:['#GalaxyAI','#Samsung']},
+{cat:'f',name:'Horizontal Lock',tags:['#GalaxyAI','#Samsung','#Camara']},
+{cat:'f',name:'Privacy Display',tags:['#GalaxyAI','#GalaxyS26Ultra','#PrivacyDisplay']},
+{cat:'f',name:'Photo Assist',tags:['#GalaxyAI','#Samsung','#PhotoAssist']},
+{cat:'v',name:'SmartThings',tags:['#SmartThings','#Samsung','#GalaxyAI']},
+{cat:'v',name:'Knox Security',tags:['#KnoxSecurity','#Samsung','#GalaxyAI']},
+{cat:'v',name:'Galaxy Canje',tags:['#GalaxyCanje','#Samsung','#GalaxyAI']},
+{cat:'v',name:'Samsung Care+',tags:['#SamsungCare','#Samsung','#GalaxyAI']},
+{cat:'v',name:'Samsung Members',tags:['#SamsungMembers','#Samsung','#GalaxyAI']},
+]};
+
+// ─── EDITOR CONFIG ───────────────────────────────────────────────────────────
+const FMTS={
+'alt-prod':{max:150,soft:120,hint:'Rango ideal: 80–120 car. · Máximo 150',isAlt:true,altType:'prod'},
+'alt-feat':{max:150,soft:120,hint:'Rango ideal: 80–120 car. · Máximo 150',isAlt:true,altType:'feat'},
+'alt-vas': {max:150,soft:120,hint:'Rango ideal: 80–120 car. · Máximo 150',isAlt:true,altType:'vas'},
+'alt-wear':{max:150,soft:120,hint:'Rango ideal: 80–120 car. · Máximo 150',isAlt:true,altType:'wear'},
+ig:        {max:2200,soft:150,hint:'Recomendado 138–150 para preview en feed',isAlt:false},
+'yt-title':{max:100,soft:70,hint:'Recomendado 60–70 para no truncar en resultados',isAlt:false},
+'yt-desc': {max:5000,soft:300,hint:'Las primeras 150 car. son las más importantes',isAlt:false},
+meta:      {max:160,soft:155,hint:'Recomendado 145–155 para Google',isAlt:false},
+};
+
+const ALT_FORMULAS={
+prod:{
+  label:'Dispositivo como protagonista',
+  formula:'[Nombre oficial del producto] con [característica visual o técnica] en [contexto/entorno]',
+  example:'"Samsung Galaxy S26 Ultra con pantalla Dynamic AMOLED y Galaxy AI activo"',
+  prioridad:'Nombre completo del producto + característica física o técnica destacada.'
+},
+feat:{
+  label:'Feature como protagonista',
+  formula:'[Nombre oficial de la feature] en [Nombre oficial del producto] + [contexto]',
+  example:'"Photo Assist de Galaxy AI en Samsung Galaxy S26 Ultra con edición de imagen activa"',
+  prioridad:'Nombre oficial de la feature + producto en que corre + contexto de uso.'
+},
+vas:{
+  label:'VAS como protagonista',
+  formula:'[Nombre del servicio] en [Producto(s)] con [beneficio o contexto]',
+  example:'"SmartThings conectando Samsung Galaxy S26, Galaxy Watch8 y televisor en el hogar"',
+  prioridad:'Nombre del servicio + producto(s) conectados + valor que representa.'
+},
+wear:{
+  label:'Wearable como protagonista',
+  formula:'[Nombre oficial] con [función destacada] en [contexto de uso]',
+  example:'"Samsung Galaxy Buds4 Pro con cancelación de ruido activa en entorno de trabajo"',
+  prioridad:'Nombre completo del producto + función principal + contexto.'
+}
+};
+
+const COPY_GUIDES={
+ig:'Las keywords son vocabulario de referencia. Intégralas de forma natural, no uses todas ni literalmente.',
+'yt-title':'Coloca el nombre del producto o feature al inicio del título. Incluye al menos una keyword clave.',
+'yt-desc':'Las primeras 150 caracteres son lo más visible. Integra keywords clave en el primer párrafo.',
+meta:'Incluye el nombre oficial del producto y un beneficio o intención de búsqueda clara.',
+};
+
+const ED_KW={
+s26:['Galaxy S26 Ultra','celular con AI','AI phone','cámara de 200 megapíxeles','mejor celular Samsung 2026'],
+s25:['Galaxy S25','Samsung Galaxy AI','celular inteligente Samsung','Galaxy S25 Ultra cámara'],
+zflip7:['Galaxy Z Flip7','celular plegable Samsung','plegable compacto 2026','selfie con celular plegable'],
+zfold7:['Galaxy Z Fold7','multitarea Galaxy Fold','plegable para trabajo','Galaxy Z Fold7 productividad'],
+watch8:['Galaxy Watch8','smartwatch Samsung salud','detección de caída Samsung','wearable salud cardiovascular'],
+buds4:['Galaxy Buds4 Pro','cancelación de ruido','audífonos Hi-Fi Samsung','mejores audífonos inalámbricos 2026'],
+tabs11:['Galaxy Tab S11','tablet con AI','Galaxy AI en tablet','tablet para estudiar Samsung'],
+tabs11u:['Galaxy Tab S11 Ultra','tablet premium Samsung','tablet para creativos','Galaxy Tab S11 Ultra vs iPad Pro'],
+taba11:['Galaxy Tab A11+','tablet Samsung accesible','mejor tablet económica Samsung','tablet para niños Samsung'],
+ring:['Galaxy Ring','anillo inteligente Samsung','Galaxy Ring monitoreo salud','Galaxy Ring sueño'],
+a57:['Galaxy A57','celular Samsung gama media','Galaxy AI en Galaxy A57','cámara Galaxy A57','batería Galaxy A57'],
+a37:['Galaxy A37','celular Samsung económico','Galaxy A37 precio accesible','cámara Galaxy A37','Samsung gama de entrada'],
+galaxyai:['Galaxy AI','inteligencia artificial Samsung','¿qué es Galaxy AI?','Galaxy AI editar fotos'],
+nightography:['Nightography','cámara nocturna Samsung','video nocturno Samsung','mejor cámara de noche Android'],
+nownudge:['Now Nudge','recordatorios inteligentes Samsung','Galaxy AI productividad','Now Nudge cómo funciona'],
+callscreening:['Call Screening Samsung','filtro de llamadas con AI','Samsung detecta spam','Call Screening México'],
+headgestures:['Head Gestures Samsung','controlar audífonos sin manos','Samsung accesibilidad'],
+hifisound:['Hi-Fi Sound Samsung','sonido de alta fidelidad audífonos','música sin pérdida de calidad'],
+horizontallock:['Horizontal Lock Samsung','video horizontal Samsung','estabilizador en cámara'],
+privacydisplay:['Privacy Display Samsung','pantalla anti espías celular','pantalla privada Galaxy'],
+photoassist:['Photo Assist Samsung','editar fotos con AI','borrar objetos de fotos celular','Generative Edit Samsung'],
+smartthings:['SmartThings Samsung','casa inteligente Samsung','SmartThings ecosistema','rutinas SmartThings'],
+members:['Samsung Members México','beneficios Samsung Members','Samsung Members descuentos'],
+knox:['Knox Samsung','Knox Security','Knox Vault Samsung','Samsung para empresas seguridad'],
+canje:['Galaxy Canje','canje Samsung México','trade-in Samsung','cuánto vale mi Galaxy en el canje'],
+careplus:['Samsung Care+','seguro celular Samsung','Samsung Care+ vale la pena','garantía extendida Samsung'],
+};
+
+const ED_HASH={
+s26:['#GalaxyS26','#GalaxyS26Ultra','#GalaxyAI'],s25:['#GalaxyS25','#GalaxyS25Ultra','#GalaxyAI'],
+zflip7:['#GalaxyZFlip7','#GalaxyAI'],zfold7:['#GalaxyZFold7','#GalaxyAI'],
+watch8:['#GalaxyWatch8','#GalaxyWatch8Ultra','#GalaxyAI'],buds4:['#GalaxyBuds4','#GalaxyBuds4Pro','#GalaxyAI'],
+tabs11:['#GalaxyTabS11','#GalaxyAI','#TabletSamsung'],tabs11u:['#GalaxyTabS11Ultra','#GalaxyAI','#TabletSamsung'],
+taba11:['#GalaxyTabA11Plus','#GalaxyTab','#TabletSamsung'],ring:['#GalaxyRing','#SaludConSamsung','#GalaxyAI'],
+a57:['#GalaxyA57','#Samsung','#GalaxyAI'],a37:['#GalaxyA37','#Samsung','#GalaxyAI'],
+galaxyai:['#GalaxyAI','#Samsung'],nightography:['#Nightography','#GalaxyAI','#Camara'],
+nownudge:['#GalaxyAI','#Samsung','#NowNudge'],callscreening:['#GalaxyAI','#Samsung','#CallScreening'],
+headgestures:['#GalaxyAI','#Samsung'],hifisound:['#GalaxyAI','#Samsung'],
+horizontallock:['#GalaxyAI','#Samsung','#Camara'],privacydisplay:['#GalaxyAI','#GalaxyS26Ultra','#PrivacyDisplay'],
+photoassist:['#GalaxyAI','#Samsung','#PhotoAssist'],smartthings:['#SmartThings','#Samsung','#GalaxyAI'],
+members:['#SamsungMembers','#Samsung','#GalaxyAI'],knox:['#KnoxSecurity','#Samsung','#GalaxyAI'],
+canje:['#GalaxyCanje','#Samsung','#GalaxyAI'],careplus:['#SamsungCare','#Samsung','#GalaxyAI'],
+};
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function cl(c){return{d:'Dispositivo',f:'Feature',v:'VAS'}[c]||c}
+function cp(c){return{d:'pill-d',f:'pill-f',v:'pill-v'}[c]||'pill-d'}
+function esc(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}
+function icon(ok,type){
+  // 'na' always shows neutral regardless of ok
+  if(type==='na') return'<div class="val-icon v-na">–</div>';
+  // for all other types, if ok===true use the type, else fallback
+  if(type==='ok')   return ok?'<div class="val-icon v-ok">✓</div>':'<div class="val-icon v-warn">!</div>';
+  if(type==='warn') return ok?'<div class="val-icon v-ok">✓</div>':'<div class="val-icon v-warn">!</div>';
+  if(type==='err')  return ok?'<div class="val-icon v-ok">✓</div>':'<div class="val-icon v-err">✗</div>';
+  return'<div class="val-icon v-na">–</div>';
+}
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+function renderKW(data){
+  const g={d:[],f:[],v:[]};data.forEach(i=>g[i.cat]&&g[i.cat].push(i));
+  let h='';
+  ['d','f','v'].forEach(cat=>{
+    if(!g[cat].length)return;
+    h+=`<div class="sec-head">${cl(cat)}<div class="sec-line"></div></div>`;
+    g[cat].forEach(item=>{
+      h+=`<div class="kw-card"><div class="kw-card-head"><span class="kw-card-name">${item.name}</span><span class="pill ${cp(item.cat)}">${cl(item.cat)}</span></div>`;
+      h+=`<div class="kw-tags">${item.tags.map(t=>`<span class="kw-tag" onclick="cpt(this,'${esc(t)}')">${t}</span>`).join('')}</div>`;
+      h+=`<div class="kw-foot"><span class="kw-hint">${item.tags.length} keywords · toca para copiar</span><button class="copy-all" onclick="cpy('${esc(item.tags.join(', '))}','Keywords copiadas')">Copiar todas</button></div></div>`;
+    });
+  });
+  document.getElementById('kw-list').innerHTML=h||'<div class="empty-state">Sin resultados.</div>';
+}
+
+function renderMeta(data){
+  const g={d:[],f:[],v:[]};data.forEach(i=>g[i.cat]&&g[i.cat].push(i));
+  let h='';
+  ['d','f','v'].forEach(cat=>{
+    if(!g[cat].length)return;
+    h+=`<div class="sec-head">${cl(cat)}<div class="sec-line"></div></div>`;
+    g[cat].forEach(item=>{
+      h+=`<div class="meta-card"><div class="kw-card-head"><span class="kw-card-name">${item.name}</span><span class="pill ${cp(item.cat)}">${cl(item.cat)}</span></div>`;
+      h+=`<div class="meta-body">${item.text}</div>`;
+      h+=`<div class="meta-foot"><button class="btn" style="font-size:10px" onclick="cpy('${esc(item.text)}','Metatag copiado')">Copiar metatag</button></div></div>`;
+    });
+  });
+  document.getElementById('meta-list').innerHTML=h||'<div class="empty-state">Sin resultados.</div>';
+}
+
+function renderHash(data){
+  const g={d:[],f:[],v:[]};data.forEach(i=>g[i.cat]&&g[i.cat].push(i));
+  let h='';
+  ['d','f','v'].forEach(cat=>{
+    if(!g[cat].length)return;
+    h+=`<div class="sec-head">${cl(cat)}<div class="sec-line"></div></div>`;
+    g[cat].forEach(item=>{
+      h+=`<div class="kw-card"><div class="kw-card-head"><span class="kw-card-name">${item.name}</span><span class="pill ${cp(item.cat)}">${cl(item.cat)}</span></div>`;
+      h+=`<div class="kw-tags" style="gap:6px;margin-top:2px">${item.tags.map(t=>`<span class="hash-tag" onclick="cpt(this,'${esc(t)}')">${t}</span>`).join('')}</div>`;
+      h+=`<div class="kw-foot" style="margin-top:10px"><span class="kw-hint">Máx 2–3 por publicación · toca para copiar</span><button class="copy-all" onclick="cpy('${esc(item.tags.join(' '))}','Hashtags copiados')">Copiar todos</button></div></div>`;
+    });
+  });
+  document.getElementById('hash-list').innerHTML=h||'<div class="empty-state">Sin resultados.</div>';
+}
+
+// ─── FILTERS ─────────────────────────────────────────────────────────────────
+function kwF(el,cat){fl(el);renderKW(cat==='all'?DB.keywords:DB.keywords.filter(i=>i.cat===cat))}
+function metaF(el,cat){fl(el);renderMeta(cat==='all'?DB.metatags:DB.metatags.filter(i=>i.cat===cat))}
+function hashF(el,cat){fl(el);renderHash(cat==='all'?DB.hashtags:DB.hashtags.filter(i=>i.cat===cat))}
+function fl(el){el.closest('.filter-bar').querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));el.classList.add('active')}
+
+function globalSearch(q){
+  const ql=q.toLowerCase().trim();
+  const res=ql?DB.keywords.filter(i=>i.name.toLowerCase().includes(ql)||i.tags.some(t=>t.toLowerCase().includes(ql))):DB.keywords;
+  renderKW(res);
+  if(!document.getElementById('page-keywords').classList.contains('active')){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById('page-keywords').classList.add('active');
+    document.querySelectorAll('.nav-item').forEach((n,i)=>{n.classList.remove('active');if(i===0)n.classList.add('active')});
+  }
+}
+
+function goPage(id,el){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));el.classList.add('active');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if(id==='keywords')renderKW(DB.keywords);
+  if(id==='metatags')renderMeta(DB.metatags);
+  if(id==='hashtags')renderHash(DB.hashtags);
+  if(id==='editor')edUpdate();
+}
+
+// ─── EDITOR ──────────────────────────────────────────────────────────────────
+let altTab='prod';
+
+// ── GEO SCORE ENGINE ─────────────────────────────────────────────────────────
+const GEO_WEIGHTS = {
+  officialName:  { pts: 25, label: 'Nombre oficial del producto' },
+  keywordHit:    { pts: 20, label: 'Keyword principal presente' },
+  intent:        { pts: 20, label: 'Intención de búsqueda clara' },
+  length:        { pts: 15, label: 'Longitud en rango óptimo' },
+  noGeneric:     { pts: 10, label: 'Sin frases genéricas' },
+  semanticVar:   { pts: 10, label: 'Variación semántica (2+ keywords)' },
+};
+
+const INTENT_PATTERNS = {
+  info:  /qué es|cómo funciona|para qué sirve|qué hace|qué incluye|cuáles son|diferencia|características|beneficios|qué tiene|nuevo/i,
+  comp:  /vs|versus|mejor que|comparado|diferencia entre|o el|cuál es mejor|alternativa|frente a/i,
+  trans: /precio|comprar|dónde|cuánto cuesta|disponible|oferta|descuento|adquirir|obtener|canje|contratar/i,
+  // Promotional/brand copy — typical of Instagram, YouTube launches, social brand posts
+  promo: /ya está aquí|ya llegó|conoce|descubre|escúchalo|siéntelo|vívelo|experiencia|lanzamiento|disponible ahora|solo en|nuevo|llega|presenta|introducing|presenta|estrena|regresa|ahora con|ahora sí|el mejor|sin igual|tus oídos|tu vida|tu rutina|haz más|redescubre|transforma|llevá|explora|ahora puedes|te presentamos|link de bio|swipe|bio link|conócelo|conócela/i,
+};
+
+function detectIntent(text) {
+  if (!text.trim()) return 'none';
+  const scores = { info: 0, comp: 0, trans: 0, promo: 0 };
+  if (INTENT_PATTERNS.info.test(text))  scores.info++;
+  if (INTENT_PATTERNS.comp.test(text))  scores.comp++;
+  if (INTENT_PATTERNS.trans.test(text)) scores.trans++;
+  if (INTENT_PATTERNS.promo.test(text)) scores.promo++;
+  const total = scores.info + scores.comp + scores.trans + scores.promo;
+  if (total === 0) return 'none';
+  // If promo is the ONLY signal, return promo
+  if (scores.promo && !scores.info && !scores.comp && !scores.trans) return 'promo';
+  // Promo + one other = that other (promo is background noise in social)
+  const nonPromo = scores.info + scores.comp + scores.trans;
+  if (nonPromo > 1) return 'mix';
+  if (scores.info)  return 'info';
+  if (scores.comp)  return 'comp';
+  if (scores.trans) return 'trans';
+  return 'promo';
+}
+
+function calcDensity(text, prod) {
+  const kws = ED_KW[prod] || [];
+  if (!kws.length || !text.trim()) return { pct: 0, found: 0, total: kws.length };
+  const tl = text.toLowerCase();
+  let found = 0;
+  kws.forEach(kw => {
+    // Match by root word (first meaningful word of keyword)
+    const root = kw.toLowerCase().split(' ').filter(w => w.length > 3)[0] || kw.toLowerCase();
+    if (tl.includes(root)) found++;
+  });
+  return { pct: Math.round(found / kws.length * 100), found, total: kws.length };
+}
+
+function calcGeoScore(text, prod, fmt) {
+  const n = text.length;
+  const f = FMTS[fmt];
+  const tl = text.toLowerCase();
+  const kws = ED_KW[prod] || [];
+
+  const criteria = {};
+
+  // Official name (25 pts)
+  // Matches both spaced ("Galaxy Buds4") and hashtag/compound forms ("#GalaxyBuds4Pro", "GalaxyAI")
+  // Also matches feature names used alone: "Hi-Fi", "Nightography", etc.
+  // Match official names in plain text OR hashtag form (#GalaxyS26Ultra, #GalaxyAI, etc.)
+  const hasName = /#?Samsung ?Galaxy|#?Galaxy ?S2[56]|#?Galaxy ?Z[ -]?Flip|#?Galaxy ?Z[ -]?Fold|#?Galaxy ?Watch|#?Galaxy ?Buds|#?Galaxy ?Tab|#?Galaxy ?Ring|#?Galaxy ?AI|#?GalaxyAI|#?GalaxyBuds|#?GalaxyWatch|#?GalaxyTab|#?GalaxyRing|#?GalaxyZ|#?GalaxyS2[56]|#?SmartThings|#?Knox|#?Samsung ?Care|#?SamsungCare|#?Samsung ?Members|#?SamsungMembers|#?Galaxy ?Canje|#?GalaxyCanje|#?Nightography|#?Now ?Nudge|#?NowNudge|#?Call ?Screening|#?CallScreening|#?Head ?Gestures|#?HeadGestures|#?Hi-Fi|#?HiFi|#?Horizontal ?Lock|#?HorizontalLock|#?Privacy ?Display|#?PrivacyDisplay|#?Photo ?Assist|#?PhotoAssist|#?Galaxy ?A[35][67]|#?GalaxyA[35][67]/i.test(text);
+  criteria.officialName = hasName ? 25 : 0;
+
+  // Keyword hit (20 pts — at least 1 keyword from bank)
+  const kwHits = kws.filter(kw => {
+    const root = kw.toLowerCase().split(' ').filter(w => w.length > 3)[0] || kw.toLowerCase();
+    return tl.includes(root);
+  }).length;
+  criteria.keywordHit = kwHits >= 1 ? 20 : kwHits > 0 ? 10 : 0;
+
+  // Intent clarity (20 pts)
+  const intent = detectIntent(text);
+  criteria.intent = (intent !== 'none' && intent !== 'mix') ? 20 : intent === 'mix' ? 10 : 0;
+
+  // Length (15 pts)
+  const inIdeal = n >= Math.round(f.soft * 0.6) && n <= f.soft;
+  const inMax   = n > f.soft && n <= f.max;
+  criteria.length = n === 0 ? 0 : inIdeal ? 15 : inMax ? 8 : n < Math.round(f.soft * 0.6) && n > 0 ? 5 : 0;
+
+  // No generic phrases (10 pts)
+  const generic = /^(imagen de|foto de)|celular|smartphone|dispositivo móvil$/i.test(text);
+  criteria.noGeneric = !generic && n > 0 ? 10 : n === 0 ? 0 : 5;
+
+  // Semantic variation — 2+ keywords (10 pts)
+  criteria.semanticVar = kwHits >= 3 ? 10 : kwHits >= 2 ? 6 : kwHits === 1 ? 3 : 0;
+
+  const total = Object.values(criteria).reduce((a, b) => a + b, 0);
+  return { total, criteria, intent, density: calcDensity(text, prod) };
+}
+
+function scoreColor(s) {
+  if (s === 0)  return 'var(--text3)';
+  if (s < 40)  return 'var(--red)';
+  if (s < 65)  return 'var(--amber)';
+  if (s < 85)  return 'var(--gold)';
+  return 'var(--green)';
+}
+function scoreClass(s) {
+  if (s === 0) return 's-empty';
+  if (s < 40)  return 's-low';
+  if (s < 65)  return 's-mid';
+  if (s < 85)  return 's-good';
+  return 's-top';
+}
+function scoreGrade(s) {
+  if (s === 0)  return '';
+  if (s < 40)  return 'Necesita trabajo';
+  if (s < 65)  return 'Aceptable';
+  if (s < 85)  return 'Bueno';
+  if (s < 95)  return 'Muy bueno';
+  return '¡Excelente!';
+}
+
+// ── CANIBALIZACIÓN ────────────────────────────────────────────────────────────
+let sessionCopies = JSON.parse(localStorage.getItem('geo_session') || '[]');
+
+function checkCanib(text, prod) {
+  if (!text.trim() || sessionCopies.length === 0) {
+    document.getElementById('canib-alert').style.display = 'none';
+    return;
+  }
+  const tl = text.toLowerCase();
+  const kws = ED_KW[prod] || [];
+  const myKws = kws.filter(kw => {
+    const root = kw.toLowerCase().split(' ').filter(w => w.length > 3)[0] || kw.toLowerCase();
+    return tl.includes(root);
+  });
+  if (myKws.length === 0) { document.getElementById('canib-alert').style.display='none'; return; }
+
+  const conflicts = sessionCopies.filter(c => {
+    if (c.prod === prod) return false;
+    return myKws.some(kw => {
+      const root = kw.toLowerCase().split(' ').filter(w => w.length > 3)[0] || kw.toLowerCase();
+      return c.text.toLowerCase().includes(root);
+    });
+  });
+
+  if (conflicts.length > 0) {
+    const names = [...new Set(conflicts.map(c => c.prodName))].join(', ');
+    document.getElementById('canib-alert').style.display = 'block';
+    document.getElementById('canib-body').textContent =
+      'Las keywords de este copy también aparecen en copies previos de: ' + names + '. Considera diferenciar el vocabulario.';
+  } else {
+    document.getElementById('canib-alert').style.display = 'none';
+  }
+}
+
+function saveCopyToSession(text, prod, prodName, score) {
+  if (!text.trim()) return;
+  sessionCopies = sessionCopies.filter(c => c.prod !== prod || c.text !== text);
+  sessionCopies.unshift({ prod, prodName, text, score, ts: Date.now() });
+  if (sessionCopies.length > 10) sessionCopies = sessionCopies.slice(0, 10);
+  try { localStorage.setItem('geo_session', JSON.stringify(sessionCopies)); } catch(e){}
+  renderHistory();
+}
+
+function clearHistory() {
+  sessionCopies = [];
+  try { localStorage.removeItem('geo_session'); } catch(e){}
+  renderHistory();
+  showToast('Historial limpiado');
+}
+
+function renderHistory() {
+  const el = document.getElementById('hist-list');
+  if (!el) return;
+  if (!sessionCopies.length) {
+    el.innerHTML = '<p style="font-size:11px;color:var(--text3);font-style:italic">Aún no hay copies guardados.</p>';
+    return;
+  }
+  el.innerHTML = sessionCopies.map((c, i) => `
+    <div class="hist-item" onclick="loadHistory(${i})">
+      <span class="hist-prod">${c.prodName}</span>
+      <span class="hist-score" style="color:${scoreColor(c.score)}">${c.score}</span>
+      <div class="hist-preview">${c.text}</div>
+    </div>`).join('');
+}
+
+function loadHistory(i) {
+  const c = sessionCopies[i];
+  if (!c) return;
+  document.getElementById('ed-text').value = c.text;
+  // Set product selector
+  const sel = document.getElementById('ed-product');
+  for (let o of sel.options) { if (o.value === c.prod) { sel.value = c.prod; break; } }
+  edUpdate();
+}
+
+// ─── INTENT LABELS ────────────────────────────────────────────────────────────
+const INTENT_LABELS = {
+  info:  { label: 'Informacional',  cls: 'intent-info' },
+  comp:  { label: 'Comparativo',    cls: 'intent-comp' },
+  trans: { label: 'Transaccional',  cls: 'intent-trans' },
+  promo: { label: 'Promocional',    cls: 'intent-promo' },
+  mix:   { label: 'Mixto',          cls: 'intent-mix' },
+  none:  { label: 'Escribe tu copy', cls: 'intent-none' },
+};
+
+// ─── PROD NAMES MAP ───────────────────────────────────────────────────────────
+const PROD_NAMES = {
+  s26:'Galaxy S26 Ultra',s25:'Galaxy S25 Ultra',zflip7:'Galaxy Z Flip7',zfold7:'Galaxy Z Fold7',
+  watch8:'Galaxy Watch8',buds4:'Galaxy Buds4 Pro',tabs11:'Galaxy Tab S11',tabs11u:'Galaxy Tab S11 Ultra',
+  taba11:'Galaxy Tab A11+',ring:'Galaxy Ring',a57:'Galaxy A57',a37:'Galaxy A37',galaxyai:'Galaxy AI',nightography:'Nightography',
+  nownudge:'Now Nudge',callscreening:'Call Screening',headgestures:'Head Gestures',
+  hifisound:'Hi-Fi Sound',horizontallock:'Horizontal Lock',privacydisplay:'Privacy Display',
+  photoassist:'Photo Assist',smartthings:'SmartThings',members:'Samsung Members',
+  knox:'Knox Security',canje:'Galaxy Canje',careplus:'Samsung Care+',
+};
+
+function edUpdate(){
+  const fmt=document.getElementById('ed-format').value;
+  const prod=document.getElementById('ed-product').value;
+  const val=document.getElementById('ed-text').value;
+  const n=val.length;
+  const f=FMTS[fmt];
+
+  // counter
+  const ce=document.getElementById('ed-count');
+  ce.textContent=n+' car.';
+  ce.className='counter-num '+(n===0?'':(n<=f.soft?'ok':n<=f.max?'warn':'over'));
+  document.getElementById('ed-hint').textContent=f.hint;
+  const pct=Math.min(100,Math.round(n/f.max*100));
+  const fi=document.getElementById('ed-fill');
+  fi.style.width=pct+'%';
+  fi.style.background=n<=f.soft?'var(--green)':n<=f.max?'var(--amber)':'var(--red)';
+
+  // keywords sidebar
+  document.getElementById('ed-kwsugg').innerHTML=(ED_KW[prod]||[]).map(t=>`<span class="ins-tag" onclick="ins('${esc(t)}')">${t}</span>`).join('');
+
+  // alt text mode
+  if(f.isAlt){
+    // show formula area
+    const af=ALT_FORMULAS[altTab];
+    document.getElementById('ed-formula-area').innerHTML=`
+      <div class="formula-tabs">
+        <div class="ftab ${altTab==='prod'?'active':''}" onclick="setAltTab('prod')">Dispositivo</div>
+        <div class="ftab ${altTab==='feat'?'active':''}" onclick="setAltTab('feat')">Feature</div>
+        <div class="ftab ${altTab==='vas'?'active':''}" onclick="setAltTab('vas')">VAS</div>
+        <div class="ftab ${altTab==='wear'?'active':''}" onclick="setAltTab('wear')">Wearable</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula-title">${af.label}</div>
+        <div style="font-size:10px;color:var(--text3);margin-bottom:6px;font-family:'Barlow',sans-serif">Prioridad: ${af.prioridad}</div>
+        <div class="formula-text">${af.formula}</div>
+        <div class="formula-example">Ej: ${af.example}</div>
+      </div>`;
+    // alt text validations
+    const hasOfficialName=/#?Samsung ?Galaxy|#?Galaxy ?S2[56]|#?Galaxy ?Z[ -]?Flip|#?Galaxy ?Z[ -]?Fold|#?Galaxy ?Watch|#?Galaxy ?Buds|#?Galaxy ?Tab|#?Galaxy ?Ring|#?Galaxy ?AI|#?GalaxyAI|#?GalaxyBuds|#?GalaxyWatch|#?GalaxyTab|#?GalaxyRing|#?GalaxyZ|#?GalaxyS2[56]|#?SmartThings|#?Knox|#?Samsung ?Care|#?SamsungCare|#?Samsung ?Members|#?SamsungMembers|#?Galaxy ?Canje|#?GalaxyCanje|#?Nightography|#?Now ?Nudge|#?NowNudge|#?Call ?Screening|#?CallScreening|#?Head ?Gestures|#?HeadGestures|#?Hi-Fi|#?HiFi|#?Horizontal ?Lock|#?HorizontalLock|#?Privacy ?Display|#?PrivacyDisplay|#?Photo ?Assist|#?PhotoAssist|#?Galaxy ?A[35][67]|#?GalaxyA[35][67]/i.test(val);
+    const noGenStart=!/^(imagen de|foto de)/i.test(val);
+    const noPersonAction=!/hace|muestra|sostiene|usa|toca|mira/i.test(val);
+    const lenOk=n>=80&&n<=150;
+    const lenWarn=n>0&&n<80;
+    document.getElementById('ed-vals').innerHTML=`
+      <div class="val">${n===0?icon(false,'na'):icon(hasOfficialName,hasOfficialName?'ok':'warn')}<div class="val-label">${n===0?'Incluye el nombre oficial completo del producto (sin abreviaciones)':hasOfficialName?'Incluye nombre oficial del producto':'Incluye el nombre oficial completo del producto (no abreviaciones)'}</div></div>
+      <div class="val">${n===0?icon(false,'na'):icon(noGenStart,noGenStart?'ok':'err')}<div class="val-label">${n===0?'No debe empezar con "Imagen de…" o "Foto de…"':noGenStart?'No empieza con "Imagen de" o "Foto de"':'Evitar iniciar con "Imagen de…" o "Foto de…"'}</div></div>
+      <div class="val">${n===0?icon(false,'na'):icon(noPersonAction,noPersonAction?'ok':'warn')}<div class="val-label">${n===0?'Describe el producto y su contexto, no lo que hace una persona':noPersonAction?'Describe el producto y su contexto, no la acción de la persona':'Describe el producto y su contexto, no lo que hace la persona'}</div></div>
+      <div class="val">${n===0?icon(false,'na'):(lenOk?icon(true,'ok'):(lenWarn?icon(false,'warn'):icon(false,'err')))}<div class="val-label">${n===0?'Longitud: entre 80 y 150 caracteres':lenOk?'Longitud dentro del rango ideal (80–150 car.)':lenWarn?'Muy corto, busca llegar a 80 caracteres mínimo':'Excede el máximo de 150 caracteres'}</div></div>
+      <div class="val">${icon(false,'na')}<div class="val-label">En carruseles: usa alt text único y diferente para cada imagen</div></div>`;
+    // show checklist card, hide hashtags
+    document.getElementById('checklist-card').style.display='block';
+    document.getElementById('hash-side-card').style.display='none';
+    document.getElementById('kw-note').textContent='El alt text no lleva keywords. Usa el nombre oficial del producto exactamente como aparece en el playbook.';
+    document.getElementById('ed-checklist').innerHTML=`
+      <div class="cl-item"><div class="cl-icon ${n===0?'v-na':hasOfficialName?'v-ok':'v-warn'}">${n===0?'–':hasOfficialName?'✓':'!'}</div>Nombre oficial completo del producto (no abreviaciones)</div>
+      <div class="cl-item"><div class="cl-icon ${n===0?'v-na':(/Galaxy AI|feature|función/i.test(val)?'v-ok':'v-na')}">${n===0?'–':/Galaxy AI|feature|función/i.test(val)?'✓':'–'}</div>Menciona el feature o servicio si es el foco del visual</div>
+      <div class="cl-item"><div class="cl-icon ${n===0?'v-na':lenOk?'v-ok':'v-warn'}">${n===0?'–':lenOk?'✓':'!'}</div>Tiene entre 80 y 150 caracteres</div>
+      <div class="cl-item"><div class="cl-icon ${n===0?'v-na':noGenStart?'v-ok':'v-err'}">${n===0?'–':noGenStart?'✓':'✗'}</div>No empieza con "Imagen de…" o "Foto de…"</div>
+      <div class="cl-item"><div class="cl-icon ${n===0?'v-na':noPersonAction?'v-ok':'v-warn'}">${n===0?'–':noPersonAction?'✓':'!'}</div>Describe el producto y su contexto, no lo que hace una persona</div>`;
+  } else {
+    // copy out / social / yt / meta mode
+    document.getElementById('ed-formula-area').innerHTML='';
+    document.getElementById('checklist-card').style.display='none';
+    document.getElementById('hash-side-card').style.display='block';
+    document.getElementById('kw-note').textContent=COPY_GUIDES[fmt]||'Las keywords son vocabulario de referencia. Intégralas de forma natural en tu copy.';
+    document.getElementById('ed-hashsugg').innerHTML=(ED_HASH[prod]||[]).map(t=>`<span class="ins-tag" onclick="ins(' '+' ${esc(t)}')">${t}</span>`).join('');
+    // copy/social validations
+    const hasGA=/Galaxy AI|GalaxyAI/i.test(val);
+    const hasPr=/#?Samsung ?Galaxy|#?Galaxy ?S2[56]|#?Galaxy ?Z[ -]?Flip|#?Galaxy ?Z[ -]?Fold|#?Galaxy ?Watch|#?Galaxy ?Buds|#?Galaxy ?Tab|#?Galaxy ?Ring|#?Galaxy ?AI|#?GalaxyAI|#?GalaxyBuds|#?GalaxyWatch|#?GalaxyTab|#?GalaxyRing|#?GalaxyZ|#?GalaxyS2[56]|#?SmartThings|#?Knox|#?Samsung ?Care|#?SamsungCare|#?Samsung ?Members|#?SamsungMembers|#?Galaxy ?Canje|#?GalaxyCanje|#?Nightography|#?Now ?Nudge|#?NowNudge|#?Call ?Screening|#?CallScreening|#?Head ?Gestures|#?HeadGestures|#?Hi-Fi|#?HiFi|#?Horizontal ?Lock|#?HorizontalLock|#?Privacy ?Display|#?PrivacyDisplay|#?Photo ?Assist|#?PhotoAssist|#?Galaxy ?A[35][67]|#?GalaxyA[35][67]/i.test(val);
+    const goodLen=n>=60&&n<=f.soft;
+    const noCaps=!/[A-Z]{5,}/.test(val);
+    document.getElementById('ed-vals').innerHTML=`
+      <div class="val">${n>0?icon(hasPr,hasPr?'ok':'warn'):icon(false,'na')}<div class="val-label">${n===0?'Incluye el nombre oficial del producto':hasPr?'Incluye nombre oficial del producto':'Considera incluir el nombre oficial del producto'}</div></div>
+      <div class="val">${n>0?icon(hasGA,hasGA?'ok':'warn'):icon(false,'na')}<div class="val-label">${n===0?'Menciona Galaxy AI o la feature principal':hasGA?'Menciona Galaxy AI o la feature clave':'Considera mencionar Galaxy AI o la feature principal'}</div></div>
+      <div class="val">${n>0?(goodLen?icon(true,'ok'):(n<60?icon(false,'warn'):icon(false,'err'))):icon(false,'na')}<div class="val-label">${n===0?'Longitud dentro del rango recomendado para este formato':goodLen?'Longitud en rango recomendado para este formato':n<60?'Copy muy corto para este formato':'Supera el rango recomendado (puede truncarse)'}</div></div>
+      <div class="val">${n>0?icon(noCaps,noCaps?'ok':'warn'):icon(false,'na')}<div class="val-label">${noCaps?'Sin bloques de mayúsculas detectados':'Evitar bloques de MAYÚSCULAS (afecta legibilidad)'}</div></div>
+      ${(prod==='s26')?`<div class="val" style="border-top:1px solid var(--border);margin-top:6px;padding-top:6px">${n===0?icon(false,'na'):icon(/#AIphone|AI phone|ai phone|#aiphone/i.test(val),/#AIphone|AI phone|ai phone|#aiphone/i.test(val)?'ok':'warn')}<div class="val-label" style="color:var(--gold)">${n===0?'S26 · Incluir "#AIphone" o "AI phone" en el copy':/#AIphone|AI phone|ai phone|#aiphone/i.test(val)?'✓ Incluye "#AIphone" o "AI phone"':'Galaxy S26 · Debe incluir "#AIphone" o "AI phone" en algún punto del copy'}</div></div>`:''}
+    `;
+  }
+
+  // ── GEO SCORE (all modes except alt text) ──────────────────────────────────
+  if (!f.isAlt) {
+    const geo = n > 0 ? calcGeoScore(val, prod, fmt) : null;
+    const score = geo ? geo.total : 0;
+    const sn = document.getElementById('geo-score-num');
+    sn.textContent = n > 0 ? score : '–';
+    sn.className = 'geo-score-num ' + scoreClass(score);
+    document.getElementById('geo-score-grade').textContent = scoreGrade(score);
+    document.getElementById('geo-bar').style.width = (n > 0 ? score : 0) + '%';
+    document.getElementById('geo-bar').style.background = scoreColor(score);
+
+    // Criteria breakdown
+    const crHtml = Object.entries(GEO_WEIGHTS).map(([k, w]) => {
+      const earned = geo ? geo.criteria[k] : 0;
+      const pct = earned >= w.pts ? 'earned' : earned > 0 ? 'partial' : 'zero';
+      const dotColor = earned >= w.pts ? 'var(--green)' : earned > 0 ? 'var(--amber)' : 'var(--border2)';
+      return `<div class="geo-crit">
+        <span class="geo-crit-name"><span class="geo-crit-dot" style="background:${dotColor}"></span>${w.label}</span>
+        <span class="geo-crit-pts ${pct}">${earned}/${w.pts}</span>
+      </div>`;
+    }).join('');
+    document.getElementById('geo-criteria').innerHTML = crHtml;
+
+    // Intent badge
+    const intent = geo ? geo.intent : 'none';
+    const il = INTENT_LABELS[intent] || INTENT_LABELS.none;
+    document.getElementById('intent-badge').innerHTML =
+      `<span class="geo-intent-badge ${il.cls}">${il.label}</span>`;
+
+    // Density
+    const d = geo ? geo.density : { pct: 0, found: 0, total: (ED_KW[prod]||[]).length };
+    document.getElementById('density-num').textContent = n > 0 ? d.pct + '%' : '0%';
+    document.getElementById('density-sub').textContent = `${d.found} de ${d.total} keywords presentes`;
+    document.getElementById('density-fill').style.width = (n > 0 ? d.pct : 0) + '%';
+
+    // Canibalización
+    checkCanib(val, prod);
+
+    // Show geo UI
+    document.getElementById('geo-score-wrap').style.display = 'block';
+    document.getElementById('geo-meta-row').style.display = 'flex';
+  } else {
+    document.getElementById('geo-score-wrap').style.display = 'none';
+    document.getElementById('geo-meta-row').style.display = 'none';
+    document.getElementById('canib-alert').style.display = 'none';
+  }
+}
+
+function setAltTab(tab){altTab=tab;edUpdate()}
+
+function ins(text){
+  const ta=document.getElementById('ed-text');
+  const s=ta.selectionStart,bef=ta.value.slice(0,s),aft=ta.value.slice(ta.selectionEnd);
+  ta.value=bef+(bef&&bef[bef.length-1]!==' '?' ':'')+text+(aft&&aft[0]!==' '?' ':'')+aft;
+  ta.focus();edUpdate();
+}
+
+function copyEditor(){
+  const v=document.getElementById('ed-text').value;
+  if(!v.trim()){showToast('Editor vacío');return;}
+  const prod=document.getElementById('ed-product').value;
+  const fmt=document.getElementById('ed-format').value;
+  const f=FMTS[fmt];
+  if(!f.isAlt){
+    const geo=calcGeoScore(v,prod,fmt);
+    saveCopyToSession(v,prod,PROD_NAMES[prod]||prod,geo.total);
+  }
+  cpy(v,'Copy copiado · guardado en historial');
+}
+
+function cpt(el,text){
+  navigator.clipboard.writeText(text).catch(()=>{});
+  const orig=el.textContent;el.classList.add('copied');el.textContent='✓';
+  setTimeout(()=>{el.classList.remove('copied');el.textContent=orig},1200);
+}
+
+function cpy(text,msg){navigator.clipboard.writeText(text).catch(()=>{});showToast(msg||'Copiado')}
+
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove('show'),2000);
+}
+
+// ─── GOOGLE SHEETS URLS ──────────────────────────────────────────────────────
+// Para agregar más hojas, añade la URL correspondiente aquí.
+// Formato: https://docs.google.com/spreadsheets/d/e/SHEET_ID/pub?gid=GID&single=true&output=csv
+const SHEETS_URLS = {
+  keywords: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQX3jrPpHsceEe8CNFsg0U4c74sCVKbrbiA62afpG4DpeFgv7xnG-fOnrWZOS0BX0wZqqX7GbzTGrq1/pub?output=csv',
+  hashtags:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vQX3jrPpHsceEe8CNFsg0U4c74sCVKbrbiA62afpG4DpeFgv7xnG-fOnrWZOS0BX0wZqqX7GbzTGrq1/pub?gid=102025668&single=true&output=csv',
+  metatags:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vQX3jrPpHsceEe8CNFsg0U4c74sCVKbrbiA62afpG4DpeFgv7xnG-fOnrWZOS0BX0wZqqX7GbzTGrq1/pub?gid=53351207&single=true&output=csv',
+};
+
+// ─── CSV PARSER ──────────────────────────────────────────────────────────────
+function parseCSV(text) {
+  const rows = [];
+  let row = [], field = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i], nx = text[i+1];
+    if (inQ) {
+      if (ch === '"' && nx === '"') { field += '"'; i++; }
+      else if (ch === '"') { inQ = false; }
+      else { field += ch; }
+    } else {
+      if (ch === '"') { inQ = true; }
+      else if (ch === ',') { row.push(field.trim()); field = ''; }
+      else if (ch === '\n' || (ch === '\r' && nx === '\n')) {
+        if (ch === '\r') i++;
+        row.push(field.trim()); field = '';
+        if (row.some(c => c !== '')) rows.push(row);
+        row = [];
+      } else { field += ch; }
+    }
+  }
+  if (field || row.length) { row.push(field.trim()); if (row.some(c=>c!=='')) rows.push(row); }
+  return rows;
+}
+
+// ─── SHEET PARSERS ───────────────────────────────────────────────────────────
+function parseCopyOuts(rows) {
+  const keywords = [];
+  let cat = null;
+  const skip = new Set(['Producto','Feature','VAS','Keyword Sugerida','DISPOSITIVO','FEATURE']);
+  for (const row of rows) {
+    const c0 = (row[0]||'').replace(/\n/g,' ').trim();
+    const c1 = (row[1]||'').trim();
+    if (!c0) continue;
+    if (c0 === 'DISPOSITIVO') { cat='d'; continue; }
+    if (c0 === 'FEATURE')     { cat='f'; continue; }
+    if (c0 === 'VAS' && (c1===''||c1==='Keyword Sugerida'||c1==='nan')) { cat='v'; continue; }
+    if (skip.has(c0) || c1 === 'Keyword Sugerida' || c1 === '' || c1 === 'nan') continue;
+    // Skip the long note row
+    if (c0.length > 100) continue;
+    if (!cat) continue;
+    const tags = c1.split(',')
+      .map(t => t.replace(/\\n|\n|\r/g,'').trim())
+      .filter(t => t.length > 0 && t !== 'nan');
+    if (tags.length > 0) keywords.push({ cat, name: c0, tags });
+  }
+  return keywords;
+}
+
+function parseHashtags(rows) {
+  const hashtags = [];
+  let cat = null;
+  const skip = new Set(['Producto','Feature','VAS','Hashtag Set','DISPOSITIVO','FEATURE']);
+  for (const row of rows) {
+    const c0 = (row[0]||'').trim();
+    if (!c0) continue;
+    if (c0 === 'DISPOSITIVO') { cat='d'; continue; }
+    if (c0 === 'FEATURE')     { cat='f'; continue; }
+    if (c0 === 'VAS' && (!row[1]||row[1]==='Hashtag Set'||row[1]==='nan')) { cat='v'; continue; }
+    if (skip.has(c0) || c0.length > 80) continue;
+    if (!cat) continue;
+    const tags = row.slice(1).map(t=>(t||'').trim()).filter(t=>t&&t!=='nan'&&t.startsWith('#'));
+    if (tags.length > 0) hashtags.push({ cat, name: c0, tags });
+  }
+  return hashtags;
+}
+
+function parseMetatags(rows) {
+  const metatags = [];
+  let cat = null;
+  const skip = new Set(['Producto','Feature','VAS','Metatag','DISPOSITIVO','FEATURE']);
+  for (const row of rows) {
+    const c0 = (row[0]||'').trim();
+    const c1 = (row[1]||'').trim();
+    if (!c0) continue;
+    if (c0 === 'DISPOSITIVO') { cat='d'; continue; }
+    if (c0 === 'FEATURE')     { cat='f'; continue; }
+    if (c0 === 'VAS' && (c1===''||c1==='Metatag'||c1==='nan')) { cat='v'; continue; }
+    if (skip.has(c0) || c1 === 'Metatag' || c1 === '' || c1 === 'nan') continue;
+    if (c0.length > 80 || c1.length < 10) continue;
+    if (!cat) continue;
+    metatags.push({ cat, name: c0, text: c1 });
+  }
+  return metatags;
+}
+
+// ─── FETCH & SYNC ────────────────────────────────────────────────────────────
+async function fetchSheet(url) {
+  // 1. Intento directo
+  try {
+    const res = await fetch(url, { cache: 'no-store' });
+    if (res.ok) {
+      const text = await res.text();
+      if (text && text.length > 20) return text;
+    }
+  } catch(e) {}
+
+  // 2. Proxy allorigins (necesario al abrir el .html desde el disco)
+  try {
+    const res = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
+    if (res.ok) {
+      const text = await res.text();
+      if (text && text.length > 20) return text;
+    }
+  } catch(e) {}
+
+  // 3. Proxy corsproxy
+  try {
+    const res = await fetch('https://corsproxy.io/?' + encodeURIComponent(url));
+    if (res.ok) {
+      const text = await res.text();
+      if (text && text.length > 20) return text;
+    }
+  } catch(e) {}
+
+  throw new Error('No se pudo conectar con ninguno de los metodos. Verifica que la hoja este publicada en Google Sheets.');
+}
+
+async function syncData(btn) {
+  btn.disabled = true;
+  btn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:spin .7s linear infinite"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> Sincronizando…';
+  document.getElementById('sync-dot').style.background = 'var(--amber)';
+  document.getElementById('sync-label').textContent = 'Actualizando…';
+
+  let updated = [], errors = [];
+
+  // Keywords / Copy Outs
+  if (SHEETS_URLS.keywords) {
+    try {
+      const csv = await fetchSheet(SHEETS_URLS.keywords);
+      const parsed = parseCopyOuts(parseCSV(csv));
+      if (parsed.length > 0) {
+        DB.keywords = parsed;
+        updated.push(`Keywords (${parsed.length} entradas)`);
+      } else {
+        errors.push('Keywords: sin datos válidos');
+      }
+    } catch(e) { errors.push('Keywords: ' + e.message); }
+  }
+
+  // Hashtags
+  if (SHEETS_URLS.hashtags) {
+    try {
+      const csv = await fetchSheet(SHEETS_URLS.hashtags);
+      const parsed = parseHashtags(parseCSV(csv));
+      if (parsed.length > 0) { DB.hashtags = parsed; updated.push(`Hashtags (${parsed.length})`); }
+      else errors.push('Hashtags: sin datos válidos');
+    } catch(e) { errors.push('Hashtags: ' + e.message); }
+  }
+
+  // Metatags
+  if (SHEETS_URLS.metatags) {
+    try {
+      const csv = await fetchSheet(SHEETS_URLS.metatags);
+      const parsed = parseMetatags(parseCSV(csv));
+      if (parsed.length > 0) { DB.metatags = parsed; updated.push(`Metatags (${parsed.length})`); }
+      else errors.push('Metatags: sin datos válidos');
+    } catch(e) { errors.push('Metatags: ' + e.message); }
+  }
+
+  // Re-render active page
+  const activePage = document.querySelector('.page.active');
+  if (activePage) {
+    const id = activePage.id.replace('page-','');
+    if (id==='keywords') renderKW(DB.keywords);
+    if (id==='metatags') renderMeta(DB.metatags);
+    if (id==='hashtags') renderHash(DB.hashtags);
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> Actualizar';
+
+  if (errors.length === 0) {
+    document.getElementById('sync-dot').style.background = 'var(--green)';
+    document.getElementById('sync-label').textContent = 'Sincronizado';
+    showToast('✓ ' + updated.join(' · '));
+  } else if (updated.length > 0) {
+    document.getElementById('sync-dot').style.background = 'var(--amber)';
+    document.getElementById('sync-label').textContent = 'Parcial';
+    showToast('Actualizado parcialmente');
+  } else {
+    document.getElementById('sync-dot').style.background = 'var(--red)';
+    document.getElementById('sync-label').textContent = 'Error al sincronizar';
+    showToast('Error: ' + errors[0]);
+  }
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+renderKW(DB.keywords);
+edUpdate();
+renderHistory();
+// Auto-sync on load if URL is configured
+if (SHEETS_URLS.keywords) {
+  syncData(document.getElementById('sync-btn'));
+}
+</script>
+</body>
+</html>
